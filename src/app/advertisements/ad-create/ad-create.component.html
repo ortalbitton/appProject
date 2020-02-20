@@ -1,0 +1,58 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <!--Property Binding [formGroup]="form" (oneway)-->
+  <!--when form property changes(on the html), it changes the form property (on the ts)-->
+  <form [formGroup]="form" (submit)="onSaveNote()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input matInput type="text" formControlName="title" placeholder="Note Title">
+      <mat-error *ngIf="form.get('title').invalid">Please enter a advertisement title.</mat-error>
+    </mat-form-field>
+    <div>
+      <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
+      <input type="file" #filePicker (change)="onImagePicked($event)">
+    </div>
+    <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
+      <img [src]="imagePreview" [alt]="form.value.title">
+    </div>
+    <mat-form-field>
+      <textarea matInput rows="4" formControlName="content" placeholder="Note Content"></textarea>
+      <mat-error *ngIf="form.get('content').invalid">Please enter a advertisement content.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Show advertisement from</mat-label>
+      <input matInput [matDatepicker]="picker1" formControlName="OpeningTime">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>to end </mat-label>
+      <input matInput [matDatepicker]="picker2" formControlName="ClosingTime">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="screenid" placeholder="screenid of Show advertisement">
+      <mat-error *ngIf="form.get('screenid').invalid">Please enter screenid</mat-error>
+    </mat-form-field>
+
+
+    <div class="toggleTimepicker1">
+      <input matInput [ngxTimepicker]="toggleTimepicker1" [disableClick]="true" readonly placeholder="Opening Hours"
+        formControlName="OpeningHours">
+      <ngx-material-timepicker-toggle [for]="toggleTimepicker1"></ngx-material-timepicker-toggle>
+      <ngx-material-timepicker #toggleTimepicker1></ngx-material-timepicker>
+    </div>
+
+    <div class="toggleTimepicker2">
+      <input matInput [ngxTimepicker]="toggleTimepicker2" [disableClick]="true" readonly placeholder="Closing Hours"
+        formControlName="ClosingHours">
+      <ngx-material-timepicker-toggle [for]="toggleTimepicker2"></ngx-material-timepicker-toggle>
+      <ngx-material-timepicker #toggleTimepicker2></ngx-material-timepicker>
+    </div>
+
+    <button mat-raised-button color="accent" type="submit">Save Note</button>
+  </form>
+</mat-card>

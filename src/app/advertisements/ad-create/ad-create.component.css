@@ -1,0 +1,46 @@
+mat-form-field,
+textarea {
+  width: 100%;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+input[type="file"] {
+  visibility: hidden;
+}
+
+.image-preview {
+  height: 5rem;
+  margin: 1rem 0;
+}
+
+.image-preview img {
+  height: 100%;
+}
+
+.toggleTimepicker1 input,
+.toggleTimepicker2 input {
+  width: 10%;
+  height: 100%;
+  border: 0;
+  font-size: 16px;
+}
+
+.toggleTimepicker1,
+.toggleTimepicker2 {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding: 4px;
+  background-color: transparent;
+  border-radius: 50%;
+  text-align: center;
+  border: none;
+  outline: none;
+  user-select: none;
+  transition: background-color .3s;
+  cursor: pointer;
+
+}
