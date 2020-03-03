@@ -1,30 +1,42 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
-import { AdCreateComponent } from './advertisements/ad-create/ad-create.component';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MatInputModule, MatCardModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule } from '@angular/material';
-//package.json בגירסא 9 צורת כתיבה זו לא עובדת לגבי הספריה מטריאל לכן צריך לשנות ב 
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { NgModule } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
+import {
+  MatInputModule,
+  MatCardModule,
+  MatButtonModule,
+  MatToolbarModule,
+  MatExpansionModule,
+  MatProgressSpinnerModule,
+  MatPaginatorModule
+} from "@angular/material";
+
+import { AppComponent } from "./app.component";
+import { AdCreateComponent } from "./advertisements/ad-create/ad-create.component";
+import { AdListComponent } from "./advertisements/ad-list/ad-list.component";
+import { AppRoutingModule } from "./app-routing.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdCreateComponent
+    AdCreateComponent,
+    AdListComponent
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule,
     BrowserAnimationsModule,
     MatInputModule,
     MatCardModule,
     MatButtonModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
+    MatToolbarModule,
+    MatExpansionModule,
     MatProgressSpinnerModule,
-    NgxMaterialTimepickerModule
+    MatPaginatorModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
