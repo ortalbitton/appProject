@@ -1,9 +1,30 @@
 const mongoose = require("mongoose");
 
-const noteSchema = mongoose.Schema({
-  title: { type: String, required: true },
-  content: { type: String, required: true },
-  imagePath: { type: String, required: true }
+const advertisementSchema = mongoose.Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  content: {
+    type: String,
+    required: true
+  },
+  imagePath: {
+    type: String,
+    required: true
+  },
+  openingHours: {
+    type: String,
+    required: true
+  },
+  closingHours: {
+    type: String,
+    required: true
+  },
+  location: {
+    type: String,
+    required: true
+  }
 });
 
-module.exports = mongoose.model("Note", noteSchema);
+module.exports = mongoose.model("Advertisement", advertisementSchema);

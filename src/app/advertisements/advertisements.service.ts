@@ -8,8 +8,8 @@ import { Advertisement } from "./advertisement.model";
 
 @Injectable({ providedIn: "root" })
 export class AdvertisementsService {
-  private notes: Advertisement[] = [];
-  private notesUpdated = new Subject<{ notes: Advertisement[]; noteCount: number }>();
+  private advertisements: Advertisement[] = [];
+  private notesUpdated = new Subject<{ advertisements: Advertisement[]; noteCount: number }>();
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -27,7 +27,10 @@ export class AdvertisementsService {
                 title: note.title,
                 content: note.content,
                 id: note._id,
-                imagePath: note.imagePath
+                imagePath: note.imagePath,
+                openingHours: note.openingHours,
+                closingHours: note.closingHours,
+                location: note.location
               };
             }),
             maxNotes: noteData.maxNotes
@@ -35,9 +38,9 @@ export class AdvertisementsService {
         })
       )
       .subscribe(transformedNoteData => {
-        this.notes = transformedNoteData.notes;
+        this.advertisements = transformedNoteData.notes;
         this.notesUpdated.next({
-          notes: [...this.notes],
+          advertisements: [...this.advertisements],
           noteCount: transformedNoteData.maxNotes
         });
       });
@@ -53,14 +56,20 @@ export class AdvertisementsService {
       title: string;
       content: string;
       imagePath: string;
+      openingHours: string;
+      closingHours: string;
+      location: string;
     }>("http://localhost:3000/api/notes/" + id);
   }
 
-  addNote(title: string, content: string, image: File) {
+  addNote(title: string, content: string, image: File, openingHours: string, closingHours: string, location: string) {
     const noteData = new FormData();
     noteData.append("title", title);
     noteData.append("content", content);
     noteData.append("image", image, title);
+    noteData.append("openingHours", openingHours);
+    noteData.append("closingHours", closingHours);
+    noteData.append("location", location);
     this.http
       .post<{ message: string; note: Advertisement }>(
         "http://localhost:3000/api/notes",
@@ -71,7 +80,7 @@ export class AdvertisementsService {
       });
   }
 
-  updateNote(id: string, title: string, content: string, image: File | string) {
+  updateNote(id: string, title: string, content: string, image: File | string, openingHours: string, closingHours: string, location: string) {
     let noteData: Advertisement | FormData;
     if (typeof image === "object") {
       noteData = new FormData();
@@ -79,12 +88,18 @@ export class AdvertisementsService {
       noteData.append("title", title);
       noteData.append("content", content);
       noteData.append("image", image, title);
+      noteData.append("openingHours", openingHours);
+      noteData.append("closingHours", closingHours);
+      noteData.append("location", location);
     } else {
       noteData = {
         id: id,
         title: title,
         content: content,
-        imagePath: image
+        imagePath: image,
+        openingHours: openingHours,
+        closingHours: closingHours,
+        location: location
       };
     }
     this.http
@@ -94,8 +109,8 @@ export class AdvertisementsService {
       });
   }
 
-  deleteNote(noteId: string) {
+  deleteNote(advertisementId: string) {
     return this.http
-      .delete("http://localhost:3000/api/notes/" + noteId);
+      .delete("http://localhost:3000/api/notes/" + advertisementId);
   }
 }

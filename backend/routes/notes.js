@@ -32,13 +32,18 @@ const storage = multer.diskStorage({
 
 router.post(
   "",
-  multer({ storage: storage }).single("image"),
+  multer({
+    storage: storage
+  }).single("image"),
   (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
     const note = new Note({
       title: req.body.title,
       content: req.body.content,
-      imagePath: url + "/images/" + req.file.filename
+      imagePath: url + "/images/" + req.file.filename,
+      openingHours: req.body.openingHours,
+      closingHours: req.body.closingHours,
+      location: req.body.location
     });
     note.save().then(createdNote => {
       res.status(201).json({
@@ -54,7 +59,9 @@ router.post(
 
 router.put(
   "/:id",
-  multer({ storage: storage }).single("image"),
+  multer({
+    storage: storage
+  }).single("image"),
   (req, res, next) => {
     let imagePath = req.body.imagePath;
     if (req.file) {
@@ -65,11 +72,18 @@ router.put(
       _id: req.body.id,
       title: req.body.title,
       content: req.body.content,
-      imagePath: imagePath
+      imagePath: imagePath,
+      openingHours: req.body.openingHours,
+      closingHours: req.body.closingHours,
+      location: req.body.location
     });
     console.log(note);
-    Note.updateOne({ _id: req.params.id }, note).then(result => {
-      res.status(200).json({ message: "Update successful!" });
+    Note.updateOne({
+      _id: req.params.id
+    }, note).then(result => {
+      res.status(200).json({
+        message: "Update successful!"
+      });
     });
   }
 );
@@ -101,15 +115,21 @@ router.get("/:id", (req, res, next) => {
     if (note) {
       res.status(200).json(note);
     } else {
-      res.status(404).json({ message: "Note not found!" });
+      res.status(404).json({
+        message: "Note not found!"
+      });
     }
   });
 });
 
 router.delete("/:id", (req, res, next) => {
-  Note.deleteOne({ _id: req.params.id }).then(result => {
+  Note.deleteOne({
+    _id: req.params.id
+  }).then(result => {
     console.log(result);
-    res.status(200).json({ message: "Note deleted!" });
+    res.status(200).json({
+      message: "Note deleted!"
+    });
   });
 });
 

@@ -1,19 +1,55 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<mat-accordion multi="true" *ngIf="notes.length > 0 && !isLoading">
-  <mat-expansion-panel *ngFor="let note of notes">
+
+<div class="searchbyCity">
+  <label>search by City</label>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="searchCity" placeholder="city">
+  </mat-form-field>
+</div>
+
+<div class="search">
+  <label>search by 3 param</label>
+  <div>
+    <mat-form-field>
+      <input matInput type="text" [(ngModel)]="searchTitle" placeholder="title">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput type="text" [(ngModel)]="searchOpeningHours" placeholder="openingHours">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput type="text" [(ngModel)]="searchClosingHours" placeholder="closingHours">
+    </mat-form-field>
+  </div>
+  <button mat-button color="warn"
+    (click)="onSearchBy3parameters(searchTitle,searchOpeningHours,searchClosingHours)">Search</button>
+  <button mat-button color="warn" (click)="OnClean()">Clean</button>
+</div>
+
+<mat-accordion multi="true" *ngIf="advertisements.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let advertisement of advertisements">
     <mat-expansion-panel-header>
-      {{ note.title }}
+      {{ advertisement.title }}
     </mat-expansion-panel-header>
     <div class="note-image">
-      <img [src]="note.imagePath" [alt]="note.title">
+      <img [src]="advertisement.imagePath" [alt]="advertisement.title">
     </div>
-    <p>{{ note.content }}</p>
+    <p>{{ advertisement.content }}</p>
+    <p>{{ advertisement.openingHours }}</p>
+    <p>{{ advertisement.closingHours }}</p>
+    <p>{{ advertisement.location }}</p>
     <mat-action-row>
-      <a mat-button color="primary" [routerLink]="['/edit', note.id]">EDIT</a>
-      <button mat-button color="warn" (click)="onDelete(note.id)">DELETE</button>
+      <a mat-button color="primary" [routerLink]="['/edit', advertisement.id]">EDIT</a>
+      <button mat-button color="warn" (click)="onDelete(advertisement.id)">DELETE</button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
-<mat-paginator [length]="totalNotes" [pageSize]="notesPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"
-  *ngIf="notes.length > 0"></mat-paginator>
-<p class="info-text mat-body-1" *ngIf="notes.length <= 0 && !isLoading">No notes added yet!</p>
+
+
+
+<mat-paginator [length]="totalNotes" [pageSize]="notesPerPage" [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangedPage($event)" *ngIf="advertisements.length > 0"></mat-paginator>
+<p class="info-text mat-body-1" *ngIf="advertisements.length <= 0 && !isLoading">No notes added yet!</p>

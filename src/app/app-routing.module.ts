@@ -7,7 +7,7 @@ import { AdCreateComponent } from "./advertisements/ad-create/ad-create.componen
 const routes: Routes = [
   { path: '', component: AdListComponent },
   { path: 'create', component: AdCreateComponent },
-  { path: 'edit/:noteId', component: AdCreateComponent },
+  { path: 'edit/:advertisementId', component: AdCreateComponent },
 ];
 
 @NgModule({

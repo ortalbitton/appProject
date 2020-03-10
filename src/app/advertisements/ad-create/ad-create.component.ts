@@ -16,10 +16,10 @@ export class AdCreateComponent implements OnInit {
   form: FormGroup;
   imagePreview: string;
   private mode = "create";
-  private noteId: string;
+  private advertisementId: string;
 
   constructor(
-    public notesService: AdvertisementsService,
+    public advertisementsService: AdvertisementsService,
     public route: ActivatedRoute
   ) { }
 
@@ -31,30 +31,41 @@ export class AdCreateComponent implements OnInit {
       content: new FormControl(null, { validators: [Validators.required] }),
       image: new FormControl(null, {
         validators: [Validators.required]
+      }),
+      openingHours: new FormControl(),
+      closingHours: new FormControl(),
+      location: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(5)]
       })
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      if (paramMap.has("noteId")) {
+      if (paramMap.has("advertisementId")) {
         this.mode = "edit";
-        this.noteId = paramMap.get("noteId");
+        this.advertisementId = paramMap.get("advertisementId");
         this.isLoading = true;
-        this.notesService.getNote(this.noteId).subscribe(noteData => {
+        this.advertisementsService.getNote(this.advertisementId).subscribe(noteData => {
           this.isLoading = false;
           this.advertisement = {
             id: noteData._id,
             title: noteData.title,
             content: noteData.content,
-            imagePath: noteData.imagePath
+            imagePath: noteData.imagePath,
+            openingHours: noteData.openingHours,
+            closingHours: noteData.closingHours,
+            location: noteData.location
           };
           this.form.setValue({
             title: this.advertisement.title,
             content: this.advertisement.content,
-            image: this.advertisement.imagePath
+            image: this.advertisement.imagePath,
+            openingHours: this.advertisement.openingHours,
+            closingHours: this.advertisement.closingHours,
+            location: this.advertisement.location,
           });
         });
       } else {
         this.mode = "create";
-        this.noteId = null;
+        this.advertisementId = null;
       }
     });
   }
@@ -76,17 +87,23 @@ export class AdCreateComponent implements OnInit {
     }
     this.isLoading = true;
     if (this.mode === "create") {
-      this.notesService.addNote(
+      this.advertisementsService.addNote(
         this.form.value.title,
         this.form.value.content,
-        this.form.value.image
+        this.form.value.image,
+        this.form.value.openingHours,
+        this.form.value.closingHours,
+        this.form.value.location
       );
     } else {
-      this.notesService.updateNote(
-        this.noteId,
+      this.advertisementsService.updateNote(
+        this.advertisementId,
         this.form.value.title,
         this.form.value.content,
-        this.form.value.image
+        this.form.value.image,
+        this.form.value.openingHours,
+        this.form.value.closingHours,
+        this.form.value.location
       );
     }
     this.form.reset();

@@ -23,3 +23,24 @@ mat-paginator {
   width: 100%;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
+
+mat-form-field {
+  padding: 60px;
+  padding-bottom: 0px;
+}
+
+.search {
+  margin-left: 0cm;
+  height: 100px;
+  position: absolute;
+  margin-top: 60px;
+}
+
+.mat-expansion-panel {
+  margin-left: 30%;
+}
+
+.searchbyCity {
+  width: 500px;
+  height: 60px;
+}

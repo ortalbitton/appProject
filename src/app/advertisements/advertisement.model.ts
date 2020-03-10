@@ -3,4 +3,7 @@ export interface Advertisement {
   title: string;
   content: string;
   imagePath: string;
+  openingHours: string;
+  closingHours: string;
+  location: string;
 }
