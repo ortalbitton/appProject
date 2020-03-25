@@ -14,15 +14,19 @@ export class AdListComponent implements OnInit, OnDestroy {
 
   advertisements: Advertisement[] = [];
   filteradvertisements: Advertisement[] = [];
+  locations: Advertisement[] = [];
   isLoading = false;
   totalNotes = 0;
   notesPerPage = 2;
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
   private notesSub: Subscription;
+  isSearch = false;
+
   searchTitle: string;
   searchOpeningHours: string;
   searchClosingHours: string;
+
 
   private _searchCity: string;
   get searchCity(): string {
@@ -33,19 +37,25 @@ export class AdListComponent implements OnInit, OnDestroy {
     this.advertisements = this.onSearchByCity(value);
   }
 
+
+
   constructor(public notesService: AdvertisementsService) { }
 
   ngOnInit() {
     this.isLoading = true;
+    this.isSearch = true;
     this.notesService.getNotes(this.notesPerPage, this.currentPage);
     this.notesSub = this.notesService
       .getNoteUpdateListener()
-      .subscribe((noteData: { advertisements: Advertisement[], noteCount: number }) => {
+      .subscribe((noteData: { advertisements: Advertisement[], locations: Advertisement[], noteCount: number }) => {
         this.isLoading = false;
         this.totalNotes = noteData.noteCount;
         this.filteradvertisements = noteData.advertisements;
+        this.locations = noteData.locations;
         this.advertisements = noteData.advertisements;
       });
+
+    if (this.advertisements.length == 0) this.isSearch = false;
   }
 
   onChangedPage(pageData: PageEvent) {
@@ -53,6 +63,7 @@ export class AdListComponent implements OnInit, OnDestroy {
     this.currentPage = pageData.pageIndex + 1;
     this.notesPerPage = pageData.pageSize;
     this.notesService.getNotes(this.notesPerPage, this.currentPage);
+    this.searchCity = "";
   }
 
   onDelete(noteId: string) {
@@ -60,6 +71,10 @@ export class AdListComponent implements OnInit, OnDestroy {
     this.notesService.deleteNote(noteId).subscribe(() => {
       this.notesService.getNotes(this.notesPerPage, this.currentPage);
     });
+  }
+
+  onGroupby(location: string) {
+
   }
 
   onSearchBy3parameters(searchTitle: string, searchOpeningHours: string, searchClosingHours: string) {

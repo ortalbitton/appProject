@@ -14,7 +14,9 @@ import {
   MatRadioModule,
   MatTreeModule,
   MatIconModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatListModule
 } from "@angular/material";
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
@@ -48,8 +50,10 @@ import { AppRoutingModule } from "./app-routing.module";
     MatTreeModule,
     MatCheckboxModule,
     MatIconModule,
+    MatDatepickerModule,
     HttpClientModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -29,12 +29,6 @@ mat-form-field {
   padding-bottom: 0px;
 }
 
-.search {
-  margin-left: 0cm;
-  height: 100px;
-  position: absolute;
-  margin-top: 60px;
-}
 
 .mat-expansion-panel {
   margin-left: 30%;
@@ -43,4 +37,10 @@ mat-form-field {
 .searchbyCity {
   width: 500px;
   height: 60px;
+  position: absolute;
+}
+
+mat-list {
+  position: absolute;
+  margin-top: 8%;
 }

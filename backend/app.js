@@ -11,7 +11,7 @@ const app = express();
   .connect(
     "mongodb+srv://max:QuBqs0T45GDKPlIG@cluster0-ntrwp.mongodb.net/node-angular?retryWrites=true"
   )*/
-  mongoose.connect('mongodb://localhost:27017/myapp')
+mongoose.connect('mongodb://localhost:27017/myapp')
   .then(() => {
     console.log("Connected to database!");
   })
@@ -20,7 +20,9 @@ const app = express();
   });
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 //app.use("/images", express.static(path.join("backend/images")));
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/", express.static(path.join(__dirname, "angular")));
@@ -39,8 +41,8 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/notes", notesRoutes);
-app.use((req,res,next) => {
-	res.sendFile(path.join(__dirname,"angular",index.html));
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "angular", index.html));
 });
 
 module.exports = app;

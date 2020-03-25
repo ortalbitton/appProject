@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, count } from "rxjs/operators";
 import { Router } from "@angular/router";
 
 import { Advertisement } from "./advertisement.model";
@@ -9,14 +9,16 @@ import { Advertisement } from "./advertisement.model";
 @Injectable({ providedIn: "root" })
 export class AdvertisementsService {
   private advertisements: Advertisement[] = [];
-  private notesUpdated = new Subject<{ advertisements: Advertisement[]; noteCount: number }>();
+  private notesUpdated = new Subject<{ advertisements: Advertisement[]; locations: Advertisement[]; noteCount: number }>();
+
+  private locations: Advertisement[] = [];
 
   constructor(private http: HttpClient, private router: Router) { }
 
   getNotes(notesPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${notesPerPage}&page=${currentPage}`;
     this.http
-      .get<{ message: string; notes: any; maxNotes: number }>(
+      .get<{ message: string; notes: any; locations: any, maxNotes: number }>(
         "http://localhost:3000/api/notes" + queryParams
       )
       .pipe(
@@ -33,14 +35,22 @@ export class AdvertisementsService {
                 location: note.location
               };
             }),
+            locations: noteData.locations.map(note => {
+              return {
+                city: note._id,
+                count: note.count
+              };
+            }),
             maxNotes: noteData.maxNotes
           };
         })
       )
       .subscribe(transformedNoteData => {
         this.advertisements = transformedNoteData.notes;
+        this.locations = transformedNoteData.locations;
         this.notesUpdated.next({
           advertisements: [...this.advertisements],
+          locations: [...this.locations],
           noteCount: transformedNoteData.maxNotes
         });
       });
@@ -113,4 +123,5 @@ export class AdvertisementsService {
     return this.http
       .delete("http://localhost:3000/api/notes/" + advertisementId);
   }
+
 }

@@ -1,33 +1,43 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
+<table class="example-full-width" cellspacing="0">
+  <tr>
+    <label>search by 3 param</label>
+    <td>
+      <mat-form-field class="example-full-width">
+        <input matInput type="text" [(ngModel)]="searchTitle" placeholder="title">
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field class="example-full-width">
+        <input matInput type="text" [(ngModel)]="searchOpeningHours" placeholder="openingHours">
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field class="example-full-width">
+        <input matInput type="text" [(ngModel)]="searchClosingHours" placeholder="closingHours">
+      </mat-form-field>
+    </td>
+    <td>
+      <button mat-button color="warn"
+        (click)="onSearchBy3parameters(searchTitle,searchOpeningHours,searchClosingHours)">Search</button>
+      <button mat-button color="warn" (click)="OnClean()">Clean</button>
+    </td>
+  </tr>
+</table>
+
 <div class="searchbyCity">
-  <label>search by City</label>
   <mat-form-field>
-    <input matInput type="text" [(ngModel)]="searchCity" placeholder="city">
+    <input matInput type="text" [(ngModel)]="searchCity" placeholder="search by City">
   </mat-form-field>
 </div>
 
-<div class="search">
-  <label>search by 3 param</label>
-  <div>
-    <mat-form-field>
-      <input matInput type="text" [(ngModel)]="searchTitle" placeholder="title">
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field>
-      <input matInput type="text" [(ngModel)]="searchOpeningHours" placeholder="openingHours">
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field>
-      <input matInput type="text" [(ngModel)]="searchClosingHours" placeholder="closingHours">
-    </mat-form-field>
-  </div>
-  <button mat-button color="warn"
-    (click)="onSearchBy3parameters(searchTitle,searchOpeningHours,searchClosingHours)">Search</button>
-  <button mat-button color="warn" (click)="OnClean()">Clean</button>
-</div>
+<!--groupby-->
+<mat-list role="list" *ngIf="locations.length > 0 && !isLoading">
+  <h5>Group by of City:</h5>
+  <mat-list-item role="listitem" *ngFor="let location of locations">{{location.city}} - {{location.count}}
+  </mat-list-item>
+</mat-list>
 
 <mat-accordion multi="true" *ngIf="advertisements.length > 0 && !isLoading">
   <mat-expansion-panel *ngFor="let advertisement of advertisements">
@@ -52,4 +62,5 @@
 
 <mat-paginator [length]="totalNotes" [pageSize]="notesPerPage" [pageSizeOptions]="pageSizeOptions"
   (page)="onChangedPage($event)" *ngIf="advertisements.length > 0"></mat-paginator>
-<p class="info-text mat-body-1" *ngIf="advertisements.length <= 0 && !isLoading">No notes added yet!</p>
+<p class="info-text mat-body-1" *ngIf="advertisements.length <= 0 && !isLoading && !isSearch">No notes added yet!</p>
+<p class="info-text mat-body-1" *ngIf="advertisements.length > 0 && isSearch">No result!</p>

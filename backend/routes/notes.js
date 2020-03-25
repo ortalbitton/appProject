@@ -92,10 +92,27 @@ router.get("", (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
   const noteQuery = Note.find();
+  const groupbyQuery = Note.aggregate([{
+    $group: {
+      _id: "$location",
+      count: {
+        $sum: 1
+      }
+    }
+  }]);
+
+  let groupbyNotes;
   let fetchedNotes;
   if (pageSize && currentPage) {
     noteQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
   }
+
+  groupbyQuery
+    .then(documents => {
+      groupbyNotes = documents;
+      return Note.count();
+    });
+
   noteQuery
     .then(documents => {
       fetchedNotes = documents;
@@ -105,6 +122,7 @@ router.get("", (req, res, next) => {
       res.status(200).json({
         message: "Notes fetched successfully!",
         notes: fetchedNotes,
+        locations: groupbyNotes,
         maxNotes: count
       });
     });
@@ -132,5 +150,7 @@ router.delete("/:id", (req, res, next) => {
     });
   });
 });
+
+
 
 module.exports = router;
