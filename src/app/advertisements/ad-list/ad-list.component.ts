@@ -73,10 +73,6 @@ export class AdListComponent implements OnInit, OnDestroy {
     });
   }
 
-  onGroupby(location: string) {
-
-  }
-
   onSearchBy3parameters(searchTitle: string, searchOpeningHours: string, searchClosingHours: string) {
     this.advertisements = this.filteradvertisements.filter(advertisement =>
       advertisement.title.toLowerCase().indexOf(searchTitle.toLowerCase()) !== -1 && advertisement.openingHours.toLowerCase().indexOf(searchOpeningHours.toLowerCase()) !== -1 && advertisement.closingHours.toLowerCase().indexOf(searchClosingHours.toLowerCase()) !== -1);
