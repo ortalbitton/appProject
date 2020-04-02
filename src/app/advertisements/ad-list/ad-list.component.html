@@ -62,5 +62,5 @@
 
 <mat-paginator [length]="totalNotes" [pageSize]="notesPerPage" [pageSizeOptions]="pageSizeOptions"
   (page)="onChangedPage($event)" *ngIf="advertisements.length > 0"></mat-paginator>
-<p class="info-text mat-body-1" *ngIf="advertisements.length <= 0 && !isLoading && !isSearch">No notes added yet!</p>
-<p class="info-text mat-body-1" *ngIf="advertisements.length > 0 && isSearch">No result!</p>
+<p class="info-text mat-body-1" *ngIf="advertisements.length <= 0 && !isLoading && isSearch">No notes added yet!</p>
+<p class="info-text mat-body-1" *ngIf="advertisements.length <= 0 && !isSearch">No result!</p>

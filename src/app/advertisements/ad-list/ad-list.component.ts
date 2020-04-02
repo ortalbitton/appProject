@@ -35,6 +35,7 @@ export class AdListComponent implements OnInit, OnDestroy {
   set searchCity(value: string) {
     this._searchCity = value;
     this.advertisements = this.onSearchByCity(value);
+    if (this.advertisements.length == 0) this.isSearch = false;
   }
 
 
@@ -54,8 +55,6 @@ export class AdListComponent implements OnInit, OnDestroy {
         this.locations = noteData.locations;
         this.advertisements = noteData.advertisements;
       });
-
-    if (this.advertisements.length == 0) this.isSearch = false;
   }
 
   onChangedPage(pageData: PageEvent) {
@@ -76,6 +75,7 @@ export class AdListComponent implements OnInit, OnDestroy {
   onSearchBy3parameters(searchTitle: string, searchOpeningHours: string, searchClosingHours: string) {
     this.advertisements = this.filteradvertisements.filter(advertisement =>
       advertisement.title.toLowerCase().indexOf(searchTitle.toLowerCase()) !== -1 && advertisement.openingHours.toLowerCase().indexOf(searchOpeningHours.toLowerCase()) !== -1 && advertisement.closingHours.toLowerCase().indexOf(searchClosingHours.toLowerCase()) !== -1);
+    if (this.advertisements.length == 0) this.isSearch = false;
   }
 
   OnClean() {
