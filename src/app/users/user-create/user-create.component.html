@@ -1,0 +1,15 @@
+<mat-card>
+  <form [formGroup]="form" (submit)="onSave()">
+    <mat-form-field>
+      <input matInput type="text" formControlName="name" placeholder="user name">
+      <mat-error *ngIf="form.get('name').invalid">Please enter a name.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="password" placeholder="user password">
+      <mat-error *ngIf="form.get('password').invalid">Please enter a advertisment title.</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="accent" type="submit">Save</button>
+  </form>
+</mat-card>

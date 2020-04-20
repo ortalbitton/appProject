@@ -1,5 +1,4 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-
 <table class="example-full-width" cellspacing="0">
   <tr>
     <label>search by 3 param</label>
@@ -51,6 +50,7 @@
     <p>{{ advertisement.openingHours }}</p>
     <p>{{ advertisement.closingHours }}</p>
     <p>{{ advertisement.location }}</p>
+    <p>admindBy: {{ advertisement.admindBy.name }}</p>
     <mat-action-row>
       <a mat-button color="primary" [routerLink]="['/edit', advertisement.id]">EDIT</a>
       <button mat-button color="warn" (click)="onDelete(advertisement.id)">DELETE</button>

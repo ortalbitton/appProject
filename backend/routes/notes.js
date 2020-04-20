@@ -3,6 +3,8 @@ const multer = require("multer");
 
 const Note = require("../models/note");
 
+const User = require("../models/user");
+
 const router = express.Router();
 
 const MIME_TYPE_MAP = {
@@ -37,23 +39,39 @@ router.post(
   }).single("image"),
   (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
-    const note = new Note({
-      title: req.body.title,
-      content: req.body.content,
-      imagePath: url + "/images/" + req.file.filename,
-      openingHours: req.body.openingHours,
-      closingHours: req.body.closingHours,
-      location: req.body.location
+    let fetched;
+
+    const findQ = User.find({
+      name: req.body.admindBy
     });
-    note.save().then(createdNote => {
-      res.status(201).json({
-        message: "Note added successfully",
-        note: {
-          ...createdNote,
-          id: createdNote._id
-        }
+
+    findQ
+      .then(documents => {
+
+        fetched = documents;
+
+        const advertisement = new Note({
+          title: req.body.title,
+          content: req.body.content,
+          imagePath: url + "/images/" + req.file.filename,
+          openingHours: req.body.openingHours,
+          closingHours: req.body.closingHours,
+          location: req.body.location,
+          admindBy: fetched[0]._id
+        });
+
+        advertisement.save().then(createdNote => {
+          res.status(201).json({
+            message: "Note added successfully",
+            advertisement: {
+              ...createdNote,
+              id: createdNote._id,
+            }
+          });
+        });
+
       });
-    });
+
   }
 );
 
@@ -91,7 +109,7 @@ router.put(
 router.get("", (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
-  const noteQuery = Note.find();
+  const noteQuery = Note.find().populate("admindBy", "-_id -__v");
   const groupbyQuery = Note.aggregate([{
     $group: {
       _id: "$location",
@@ -110,7 +128,6 @@ router.get("", (req, res, next) => {
   groupbyQuery
     .then(documents => {
       groupbyNotes = documents;
-      return Note.count();
     });
 
   noteQuery
@@ -150,7 +167,5 @@ router.delete("/:id", (req, res, next) => {
     });
   });
 });
-
-
 
 module.exports = router;

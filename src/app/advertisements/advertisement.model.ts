@@ -1,3 +1,5 @@
+import { User } from "../users/user.model";
+
 export interface Advertisement {
   id: string;
   title: string;
@@ -6,4 +8,5 @@ export interface Advertisement {
   openingHours: string;
   closingHours: string;
   location: string;
+  admindBy: User;
 }

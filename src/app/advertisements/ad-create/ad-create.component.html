@@ -37,6 +37,11 @@
       <mat-error *ngIf="form.get('location').invalid">Please enter a city</mat-error>
     </mat-form-field>
 
+    <mat-form-field>
+      <input matInput type="text" formControlName="admindBy" placeholder="admindBy">
+      <mat-error *ngIf="form.get('admindBy').invalid">Please enter a admind</mat-error>
+    </mat-form-field>
+
 
     <button mat-raised-button color="accent" type="submit">Save Note</button>
   </form>

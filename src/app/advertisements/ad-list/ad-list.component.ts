@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, Input } from "@angular/core";
 import { PageEvent } from "@angular/material";
 import { Subscription } from "rxjs";
 
@@ -37,8 +37,6 @@ export class AdListComponent implements OnInit, OnDestroy {
     this.advertisements = this.onSearchByCity(value);
     if (this.advertisements.length == 0) this.isSearch = false;
   }
-
-
 
   constructor(public notesService: AdvertisementsService) { }
 

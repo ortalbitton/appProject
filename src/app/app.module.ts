@@ -25,13 +25,17 @@ import { AdCreateComponent } from "./advertisements/ad-create/ad-create.componen
 import { AdListComponent } from "./advertisements/ad-list/ad-list.component";
 import { HeaderComponent } from "./header/header.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { LoginComponent } from './users/login/login.component';
+import { UserCreateComponent } from './users/user-create/user-create.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdCreateComponent,
     AdListComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent,
+    UserCreateComponent
   ],
   imports: [
     BrowserModule,

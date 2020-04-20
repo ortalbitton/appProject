@@ -32,7 +32,8 @@ export class AdvertisementsService {
                 imagePath: note.imagePath,
                 openingHours: note.openingHours,
                 closingHours: note.closingHours,
-                location: note.location
+                location: note.location,
+                admindBy: note.admindBy
               };
             }),
             locations: noteData.locations.map(note => {
@@ -72,7 +73,7 @@ export class AdvertisementsService {
     }>("http://localhost:3000/api/notes/" + id);
   }
 
-  addNote(title: string, content: string, image: File, openingHours: string, closingHours: string, location: string) {
+  addNote(title: string, content: string, image: File, openingHours: string, closingHours: string, location: string, admindBy: string) {
     const noteData = new FormData();
     noteData.append("title", title);
     noteData.append("content", content);
@@ -80,8 +81,9 @@ export class AdvertisementsService {
     noteData.append("openingHours", openingHours);
     noteData.append("closingHours", closingHours);
     noteData.append("location", location);
+    noteData.append("admindBy", admindBy);
     this.http
-      .post<{ message: string; note: Advertisement }>(
+      .post<{ message: string; advertisement: Advertisement; }>(
         "http://localhost:3000/api/notes",
         noteData
       )
@@ -109,7 +111,8 @@ export class AdvertisementsService {
         imagePath: image,
         openingHours: openingHours,
         closingHours: closingHours,
-        location: location
+        location: location,
+        admindBy: null
       };
     }
     this.http

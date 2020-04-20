@@ -24,7 +24,12 @@ const advertisementSchema = mongoose.Schema({
   location: {
     type: String,
     required: true
+  },
+  admindBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 });
+
 
 module.exports = mongoose.model("Advertisement", advertisementSchema);

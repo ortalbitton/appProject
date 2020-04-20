@@ -5,6 +5,8 @@ import { ActivatedRoute, ParamMap } from "@angular/router";
 import { AdvertisementsService } from "../advertisements.service";
 import { Advertisement } from "../advertisement.model";
 
+import { LoginComponent } from "../../users/login/login.component"
+
 @Component({
   selector: "app-ad-create",
   templateUrl: "./ad-create.component.html",
@@ -17,6 +19,8 @@ export class AdCreateComponent implements OnInit {
   imagePreview: string;
   private mode = "create";
   private advertisementId: string;
+
+  user: LoginComponent;
 
   constructor(
     public advertisementsService: AdvertisementsService,
@@ -36,7 +40,8 @@ export class AdCreateComponent implements OnInit {
       closingHours: new FormControl(),
       location: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(5)]
-      })
+      }),
+      admindBy: new FormControl()
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has("advertisementId")) {
@@ -52,7 +57,8 @@ export class AdCreateComponent implements OnInit {
             imagePath: noteData.imagePath,
             openingHours: noteData.openingHours,
             closingHours: noteData.closingHours,
-            location: noteData.location
+            location: noteData.location,
+            admindBy: null
           };
           this.form.setValue({
             title: this.advertisement.title,
@@ -60,7 +66,7 @@ export class AdCreateComponent implements OnInit {
             image: this.advertisement.imagePath,
             openingHours: this.advertisement.openingHours,
             closingHours: this.advertisement.closingHours,
-            location: this.advertisement.location,
+            location: this.advertisement.location
           });
         });
       } else {
@@ -85,6 +91,10 @@ export class AdCreateComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
+    for (var i = 0; i < this.user.totalUsers; i++) {
+      if (this.form.value.admindBy != this.user.users[i].name)
+        alert("המשתמש לא נמצא במערכת");
+    }
     this.isLoading = true;
     if (this.mode === "create") {
       this.advertisementsService.addNote(
@@ -93,7 +103,8 @@ export class AdCreateComponent implements OnInit {
         this.form.value.image,
         this.form.value.openingHours,
         this.form.value.closingHours,
-        this.form.value.location
+        this.form.value.location,
+        this.form.value.admindBy
       );
     } else {
       this.advertisementsService.updateNote(
