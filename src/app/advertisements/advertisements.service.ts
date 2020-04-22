@@ -6,6 +6,8 @@ import { Router } from "@angular/router";
 
 import { Advertisement } from "./advertisement.model";
 
+import { Admin } from "./admin.model";
+
 @Injectable({ providedIn: "root" })
 export class AdvertisementsService {
   private advertisements: Advertisement[] = [];
@@ -18,13 +20,13 @@ export class AdvertisementsService {
   getNotes(notesPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${notesPerPage}&page=${currentPage}`;
     this.http
-      .get<{ message: string; notes: any; locations: any, maxNotes: number }>(
-        "http://localhost:3000/api/notes" + queryParams
+      .get<{ message: string; advertisements: any; locations: any, maxNotes: number }>(
+        "http://localhost:3000/api/advertisements" + queryParams
       )
       .pipe(
         map(noteData => {
           return {
-            notes: noteData.notes.map(note => {
+            advertisements: noteData.advertisements.map(note => {
               return {
                 title: note.title,
                 content: note.content,
@@ -47,7 +49,7 @@ export class AdvertisementsService {
         })
       )
       .subscribe(transformedNoteData => {
-        this.advertisements = transformedNoteData.notes;
+        this.advertisements = transformedNoteData.advertisements;
         this.locations = transformedNoteData.locations;
         this.notesUpdated.next({
           advertisements: [...this.advertisements],
@@ -70,41 +72,43 @@ export class AdvertisementsService {
       openingHours: string;
       closingHours: string;
       location: string;
-    }>("http://localhost:3000/api/notes/" + id);
+      admindBy: Admin;
+    }>("http://localhost:3000/api/advertisements/" + id);
   }
 
   addNote(title: string, content: string, image: File, openingHours: string, closingHours: string, location: string, admindBy: string) {
-    const noteData = new FormData();
-    noteData.append("title", title);
-    noteData.append("content", content);
-    noteData.append("image", image, title);
-    noteData.append("openingHours", openingHours);
-    noteData.append("closingHours", closingHours);
-    noteData.append("location", location);
-    noteData.append("admindBy", admindBy);
+    const advertisementData = new FormData();
+    advertisementData.append("title", title);
+    advertisementData.append("content", content);
+    advertisementData.append("image", image, title);
+    advertisementData.append("openingHours", openingHours);
+    advertisementData.append("closingHours", closingHours);
+    advertisementData.append("location", location);
+    advertisementData.append("admindBy", admindBy);
     this.http
       .post<{ message: string; advertisement: Advertisement; }>(
-        "http://localhost:3000/api/notes",
-        noteData
+        "http://localhost:3000/api/advertisements",
+        advertisementData
       )
       .subscribe(responseData => {
         this.router.navigate(["/"]);
       });
   }
 
-  updateNote(id: string, title: string, content: string, image: File | string, openingHours: string, closingHours: string, location: string) {
-    let noteData: Advertisement | FormData;
+  updateNote(id: string, title: string, content: string, image: File | string, openingHours: string, closingHours: string, location: string, admindBy: string) {
+    let advertisementData: Advertisement | FormData;
     if (typeof image === "object") {
-      noteData = new FormData();
-      noteData.append("id", id);
-      noteData.append("title", title);
-      noteData.append("content", content);
-      noteData.append("image", image, title);
-      noteData.append("openingHours", openingHours);
-      noteData.append("closingHours", closingHours);
-      noteData.append("location", location);
+      advertisementData = new FormData();
+      advertisementData.append("id", id);
+      advertisementData.append("title", title);
+      advertisementData.append("content", content);
+      advertisementData.append("image", image, title);
+      advertisementData.append("openingHours", openingHours);
+      advertisementData.append("closingHours", closingHours);
+      advertisementData.append("location", location);
+      advertisementData.append("admindBy", admindBy);
     } else {
-      noteData = {
+      advertisementData = {
         id: id,
         title: title,
         content: content,
@@ -112,19 +116,19 @@ export class AdvertisementsService {
         openingHours: openingHours,
         closingHours: closingHours,
         location: location,
-        admindBy: null
+        admindBy: admindBy
       };
     }
     this.http
-      .put("http://localhost:3000/api/notes/" + id, noteData)
+      .put("http://localhost:3000/api/advertisements/" + id, advertisementData)
       .subscribe(response => {
         this.router.navigate(["/"]);
       });
   }
 
-  deleteNote(advertisementId: string) {
+  deleteNote(advertisementId: string, admindIn: string) {
     return this.http
-      .delete("http://localhost:3000/api/notes/" + advertisementId);
+      .delete("http://localhost:3000/api/advertisements/" + advertisementId + "/" + admindIn);
   }
 
 }

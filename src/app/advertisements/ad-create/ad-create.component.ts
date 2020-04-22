@@ -5,8 +5,6 @@ import { ActivatedRoute, ParamMap } from "@angular/router";
 import { AdvertisementsService } from "../advertisements.service";
 import { Advertisement } from "../advertisement.model";
 
-import { LoginComponent } from "../../users/login/login.component"
-
 @Component({
   selector: "app-ad-create",
   templateUrl: "./ad-create.component.html",
@@ -20,11 +18,11 @@ export class AdCreateComponent implements OnInit {
   private mode = "create";
   private advertisementId: string;
 
-  user: LoginComponent;
+  isVisibility = false;
 
   constructor(
     public advertisementsService: AdvertisementsService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -46,6 +44,7 @@ export class AdCreateComponent implements OnInit {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has("advertisementId")) {
         this.mode = "edit";
+        this.isVisibility = false;
         this.advertisementId = paramMap.get("advertisementId");
         this.isLoading = true;
         this.advertisementsService.getNote(this.advertisementId).subscribe(noteData => {
@@ -58,7 +57,7 @@ export class AdCreateComponent implements OnInit {
             openingHours: noteData.openingHours,
             closingHours: noteData.closingHours,
             location: noteData.location,
-            admindBy: null
+            admindBy: noteData.admindBy.name
           };
           this.form.setValue({
             title: this.advertisement.title,
@@ -66,12 +65,15 @@ export class AdCreateComponent implements OnInit {
             image: this.advertisement.imagePath,
             openingHours: this.advertisement.openingHours,
             closingHours: this.advertisement.closingHours,
-            location: this.advertisement.location
+            location: this.advertisement.location,
+            admindBy: this.advertisement.admindBy
+
           });
         });
       } else {
         this.mode = "create";
         this.advertisementId = null;
+        this.isVisibility = true;
       }
     });
   }
@@ -90,10 +92,6 @@ export class AdCreateComponent implements OnInit {
   onSaveNote() {
     if (this.form.invalid) {
       return;
-    }
-    for (var i = 0; i < this.user.totalUsers; i++) {
-      if (this.form.value.admindBy != this.user.users[i].name)
-        alert("המשתמש לא נמצא במערכת");
     }
     this.isLoading = true;
     if (this.mode === "create") {
@@ -114,7 +112,8 @@ export class AdCreateComponent implements OnInit {
         this.form.value.image,
         this.form.value.openingHours,
         this.form.value.closingHours,
-        this.form.value.location
+        this.form.value.location,
+        this.form.value.admindBy
       );
     }
     this.form.reset();

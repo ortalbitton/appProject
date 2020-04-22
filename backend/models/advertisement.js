@@ -27,7 +27,7 @@ const advertisementSchema = mongoose.Schema({
   },
   admindBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'Admin'
   }
 });
 

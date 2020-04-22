@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-const notesRoutes = require("./routes/notes");
+const advertisementsRoutes = require("./routes/advertisements");
 const usersRoutes = require("./routes/users");
 
 const app = express();
@@ -41,7 +41,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/notes", notesRoutes);
+app.use("/api/advertisements", advertisementsRoutes);
 app.use("/api/users", usersRoutes);
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { PageEvent } from "@angular/material";
 import { Subscription } from "rxjs";
 
@@ -63,9 +63,9 @@ export class AdListComponent implements OnInit, OnDestroy {
     this.searchCity = "";
   }
 
-  onDelete(noteId: string) {
+  onDelete(noteId: string, admindIn: string) {
     this.isLoading = true;
-    this.notesService.deleteNote(noteId).subscribe(() => {
+    this.notesService.deleteNote(noteId, admindIn).subscribe(() => {
       this.notesService.getNotes(this.notesPerPage, this.currentPage);
     });
   }

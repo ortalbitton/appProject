@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
-import { map, count } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { Subject } from "rxjs";
+
 
 import { User } from "./user.model";
 
@@ -58,7 +59,29 @@ export class UsersService {
         noteData
       )
       .subscribe(responseData => {
-        this.router.navigate(["login"]);
+        this.router.navigate(["listofuser"]);
+      });
+  }
+
+  getUser(id: string) {
+    return this.http.get<{
+      _id: string;
+      name: string;
+      password: string;
+    }>("http://localhost:3000/api/users/" + id);
+  }
+
+  updateUser(id: string, name: string, password: string) {
+    let noteData: User | FormData;
+    noteData = {
+      id: id,
+      name: name,
+      password: password,
+    };
+    this.http
+      .put("http://localhost:3000/api/users/" + id, noteData)
+      .subscribe(response => {
+        this.router.navigate(["listofuser"]);
       });
   }
 
@@ -67,4 +90,10 @@ export class UsersService {
       .delete("http://localhost:3000/api/users/" + userId);
   }
 
+  list() {
+    return this.http
+      .get<{ message: string; users: any, maxUsers: number }>(
+        "http://localhost:3000/api/users"
+      )
+  }
 }

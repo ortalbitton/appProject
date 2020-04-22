@@ -42,17 +42,40 @@ router.post(
       password: req.body.password
     });
 
-    user.save().then(createdNote => {
+    user.save().then(createdUser => {
       res.status(201).json({
         message: "User added successfully",
         user: {
-          ...createdNote,
-          id: createdNote._id
+          ...createdUser,
+          id: createdUser._id
         }
       });
     });
   }
 );
+
+router.put(
+  "/:id",
+  multer({
+    storage: storage
+  }).single("image"),
+  (req, res, next) => {
+    const user = new User({
+      _id: req.body.id,
+      name: req.body.name,
+      password: req.body.password,
+    });
+    console.log(user);
+    User.updateOne({
+      _id: req.params.id
+    }, user).then(result => {
+      res.status(200).json({
+        message: "Update successful!"
+      });
+    });
+  }
+);
+
 
 router.get("", (req, res, next) => {
   const userQuery = User.find();
@@ -62,7 +85,6 @@ router.get("", (req, res, next) => {
   userQuery
     .then(documents => {
       fetchedUsers = documents;
-      //return Note.count();
     })
     .then(count => {
       res.status(200).json({
@@ -73,10 +95,23 @@ router.get("", (req, res, next) => {
     });
 });
 
+router.get("/:id", (req, res, next) => {
+  User.findById(req.params.id).then(user => {
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({
+        message: "User not found!"
+      });
+    }
+  });
+});
+
 router.delete("/:id", (req, res, next) => {
   User.deleteOne({
     _id: req.params.id
   }).then(result => {
+
     console.log(result);
     res.status(200).json({
       message: "User deleted!"
