@@ -55,38 +55,18 @@ server.listen(port);
 // Loading socket.io
 var io = require('socket.io').listen(server);
 
-var numUsers = 0;
+var numClients = 0;
 
+io.on('connection', function (socket) {
+  numClients++;
+  io.emit('numClients', numClients);
 
+  console.log('Connected client');
 
-io.on('connection', (socket) => {
-  var addedUser = false;
-  // when the client emits 'add user', this listens and executes
-  socket.on('add user', (username) => {
-    if (addedUser) return;
-    console.log(username);
-    // we store the username in the socket session for this client
-    socket.username = username;
-    ++numUsers;
-    addedUser = true;
-    socket.emit('login', {
-      username: socket.username,
-      numUsers: numUsers
-    });
-    console.log("numUsers:", numUsers);
-  });
+  socket.on('disconnect', function () {
+    numClients--;
+    io.emit('numClients', numClients);
 
-  // when the user disconnects.. perform this
-  socket.on('disconnect', () => {
-    if (addedUser) {
-      --numUsers;
-
-      // echo globally that this client has left
-      socket.emit('user left', {
-        username: socket.username,
-        numUsers: numUsers
-      });
-    }
-    console.log("numUsers:", numUsers);
+    console.log('disconnected client');
   });
 });

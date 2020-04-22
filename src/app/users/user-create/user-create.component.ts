@@ -57,11 +57,9 @@ export class UserCreateComponent implements OnInit {
   }
 
   onSave() {
-
     if (this.form.invalid) {
       return;
     }
-
     this.isLoading = true;
     if (this.mode === "create") {
       this.usersService.addUser(
