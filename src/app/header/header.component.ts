@@ -1,7 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 
-const io = require('node_modules/socket.io-client');
-// or with import syntax
 import io from 'node_modules/socket.io-client';
 
 @Component({
