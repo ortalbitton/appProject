@@ -17,7 +17,7 @@ export class AdvertisementsService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getNotes(notesPerPage: number, currentPage: number) {
+  getAdvertisements(notesPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${notesPerPage}&page=${currentPage}`;
     this.http
       .get<{ message: string; advertisements: any; locations: any, maxNotes: number }>(
@@ -59,11 +59,11 @@ export class AdvertisementsService {
       });
   }
 
-  getNoteUpdateListener() {
+  getAdvertisementUpdateListener() {
     return this.notesUpdated.asObservable();
   }
 
-  getNote(id: string) {
+  getAdvertisement(id: string) {
     return this.http.get<{
       _id: string;
       title: string;
@@ -76,7 +76,7 @@ export class AdvertisementsService {
     }>("http://localhost:3000/api/advertisements/" + id);
   }
 
-  addNote(title: string, content: string, image: File, openingHours: string, closingHours: string, location: string, admindBy: string) {
+  addAdvertisement(title: string, content: string, image: File, openingHours: string, closingHours: string, location: string, admindBy: string) {
     const advertisementData = new FormData();
     advertisementData.append("title", title);
     advertisementData.append("content", content);
@@ -95,7 +95,7 @@ export class AdvertisementsService {
       });
   }
 
-  updateNote(id: string, title: string, content: string, image: File | string, openingHours: string, closingHours: string, location: string, admindBy: string) {
+  updateAdvertisement(id: string, title: string, content: string, image: File | string, openingHours: string, closingHours: string, location: string, admindBy: string) {
     let advertisementData: Advertisement | FormData;
     if (typeof image === "object") {
       advertisementData = new FormData();
@@ -126,7 +126,7 @@ export class AdvertisementsService {
       });
   }
 
-  deleteNote(advertisementId: string, admindIn: string) {
+  deleteAdvertisement(advertisementId: string, admindIn: string) {
     return this.http
       .delete("http://localhost:3000/api/advertisements/" + advertisementId + "/" + admindIn);
   }

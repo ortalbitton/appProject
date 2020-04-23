@@ -43,9 +43,9 @@ export class AdListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoading = true;
     this.isSearch = true;
-    this.notesService.getNotes(this.notesPerPage, this.currentPage);
+    this.notesService.getAdvertisements(this.notesPerPage, this.currentPage);
     this.notesSub = this.notesService
-      .getNoteUpdateListener()
+      .getAdvertisementUpdateListener()
       .subscribe((noteData: { advertisements: Advertisement[], locations: Advertisement[], noteCount: number }) => {
         this.isLoading = false;
         this.totalNotes = noteData.noteCount;
@@ -59,14 +59,14 @@ export class AdListComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.currentPage = pageData.pageIndex + 1;
     this.notesPerPage = pageData.pageSize;
-    this.notesService.getNotes(this.notesPerPage, this.currentPage);
+    this.notesService.getAdvertisements(this.notesPerPage, this.currentPage);
     this.searchCity = "";
   }
 
   onDelete(noteId: string, admindIn: string) {
     this.isLoading = true;
-    this.notesService.deleteNote(noteId, admindIn).subscribe(() => {
-      this.notesService.getNotes(this.notesPerPage, this.currentPage);
+    this.notesService.deleteAdvertisement(noteId, admindIn).subscribe(() => {
+      this.notesService.getAdvertisements(this.notesPerPage, this.currentPage);
     });
   }
 
@@ -80,7 +80,7 @@ export class AdListComponent implements OnInit, OnDestroy {
     this.searchTitle = "";
     this.searchOpeningHours = "";
     this.searchClosingHours = "";
-    this.notesService.getNotes(this.notesPerPage, this.currentPage);
+    this.notesService.getAdvertisements(this.notesPerPage, this.currentPage);
   }
 
   onSearchByCity(searchCity: string) {

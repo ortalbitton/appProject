@@ -47,7 +47,7 @@ export class AdCreateComponent implements OnInit {
         this.isVisibility = false;
         this.advertisementId = paramMap.get("advertisementId");
         this.isLoading = true;
-        this.advertisementsService.getNote(this.advertisementId).subscribe(noteData => {
+        this.advertisementsService.getAdvertisement(this.advertisementId).subscribe(noteData => {
           this.isLoading = false;
           this.advertisement = {
             id: noteData._id,
@@ -95,7 +95,7 @@ export class AdCreateComponent implements OnInit {
     }
     this.isLoading = true;
     if (this.mode === "create") {
-      this.advertisementsService.addNote(
+      this.advertisementsService.addAdvertisement(
         this.form.value.title,
         this.form.value.content,
         this.form.value.image,
@@ -105,7 +105,7 @@ export class AdCreateComponent implements OnInit {
         this.form.value.admindBy
       );
     } else {
-      this.advertisementsService.updateNote(
+      this.advertisementsService.updateAdvertisement(
         this.advertisementId,
         this.form.value.title,
         this.form.value.content,
