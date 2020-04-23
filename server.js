@@ -58,15 +58,23 @@ var io = require('socket.io').listen(server);
 var numClients = 0;
 
 io.on('connection', function (socket) {
-  numClients++;
-  io.emit('numClients', numClients);
 
-  console.log('Connected client');
+  socket.on('login', () => {
+    ++numClients;
+    socket.emit('numClients', {
+      numClients: numClients
+    });
+    console.log('connect client', numClients);
+  });
+
+  socket.on('update', (newnumClients) => {
+    console.log('update client', newnumClients);
+  });
 
   socket.on('disconnect', function () {
     numClients--;
     io.emit('numClients', numClients);
 
-    console.log('disconnected client');
+    console.log('disconnected client', numClients);
   });
 });

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 
-const io = require('socket.io-client');
+const io = require('node_modules/socket.io-client');
 // or with import syntax
 import io from 'node_modules/socket.io-client';
 
@@ -12,15 +12,20 @@ import io from 'node_modules/socket.io-client';
 export class HeaderComponent implements OnInit {
 
   socket = io('http://localhost:3000');
-  amountOfUserConnect: string;
+  amountOfUserConnect: number;
 
   constructor() { }
 
   ngOnInit() {
-    this.socket.on('numClients', (numClients) => {
-      this.amountOfUserConnect = numClients;
+    this.socket.emit('login');
+    this.socket.on('numClients', (data) => {
+      this.amountOfUserConnect = data.numClients;
     });
+  }
 
+  onChange() {
+    this.socket = io('http://localhost:3000');
+    this.socket.emit('update', this.amountOfUserConnect);
   }
 
 }
