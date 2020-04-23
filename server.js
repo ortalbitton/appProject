@@ -59,8 +59,13 @@ var numClients = 0;
 
 io.on('connection', function (socket) {
 
+  var ConnectUser = false;
+
   socket.on('login', () => {
+    if (ConnectUser) return;
+
     ++numClients;
+    ConnectUser = true;
     socket.emit('numClients', {
       numClients: numClients
     });
@@ -72,9 +77,13 @@ io.on('connection', function (socket) {
   });
 
   socket.on('disconnect', function () {
-    numClients--;
-    io.emit('numClients', numClients);
+    if (ConnectUser) {
+      numClients--;
+      socket.emit('numClients', {
+        numClients: numClients
+      });
 
-    console.log('disconnected client', numClients);
+      console.log('disconnected client', numClients);
+    }
   });
 });
