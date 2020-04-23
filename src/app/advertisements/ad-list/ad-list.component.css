@@ -32,17 +32,15 @@ mat-form-field {
 
 .mat-expansion-panel {
   margin-left: 25%;
-  margin-top: 5%;
 }
 
 .searchbyCity {
   width: 500px;
   height: 60px;
-  position: absolute;
 }
 
 mat-list {
   position: absolute;
-  margin-top: 8%;
+  margin-top: 5%;
   margin-left: 2%;
 }
