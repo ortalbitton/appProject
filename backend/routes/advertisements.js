@@ -5,9 +5,6 @@ const Advertisement = require("../models/advertisement");
 
 const Admin = require("../models/admin");
 
-
-const User = require("../models/user");
-
 const router = express.Router();
 
 const MIME_TYPE_MAP = {
