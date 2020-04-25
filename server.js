@@ -66,24 +66,28 @@ io.on('connection', function (socket) {
 
     ++numClients;
     ConnectUser = true;
-    socket.emit('numClients', {
+    io.emit('numClients', {
       numClients: numClients
     });
     console.log('connect client', numClients);
   });
 
   socket.on('update', (newnumClients) => {
+    io.emit('numClients', {
+      numClients: newnumClients
+    });
     console.log('update client', newnumClients);
   });
 
-  socket.on('disconnect', function () {
+  socket.on('disconnect', () => {
     if (ConnectUser) {
       numClients--;
-      socket.emit('numClients', {
+
+      io.emit('numClients', {
         numClients: numClients
       });
 
-      console.log('disconnected client', numClients);
+      console.log('disconnected client', numClients + " clents remain");
     }
   });
 });

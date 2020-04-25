@@ -44,3 +44,12 @@ mat-list {
   margin-top: 5%;
   margin-left: 2%;
 }
+
+.socket {
+  padding: 0;
+  position: absolute;
+}
+
+.table {
+  margin-left: 25%;
+}

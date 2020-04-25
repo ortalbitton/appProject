@@ -85,6 +85,7 @@ router.get("", (req, res, next) => {
   userQuery
     .then(documents => {
       fetchedUsers = documents;
+      return User.count();
     })
     .then(count => {
       res.status(200).json({

@@ -5,6 +5,9 @@ const Advertisement = require("../models/advertisement");
 
 const Admin = require("../models/admin");
 
+
+const User = require("../models/user");
+
 const router = express.Router();
 
 const MIME_TYPE_MAP = {
@@ -163,17 +166,13 @@ router.get("/:id", (req, res, next) => {
   });
 });
 
-router.delete("/:id/:userId", (req, res, next) => {
-  Admin.deleteOne({
-    _id: req.params.userId
-  }).then(advertisement => {
-    Advertisement.deleteOne({
-      _id: req.params.id
-    }).then(result => {
-      console.log(result);
-      res.status(200).json({
-        message: "Advertisement deleted!"
-      });
+router.delete("/:id", (req, res, next) => {
+  Advertisement.deleteOne({
+    _id: req.params.id
+  }).then(result => {
+    console.log(result);
+    res.status(200).json({
+      message: "Advertisement deleted!"
     });
   });
 });

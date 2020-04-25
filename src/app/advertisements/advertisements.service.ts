@@ -126,9 +126,9 @@ export class AdvertisementsService {
       });
   }
 
-  deleteAdvertisement(advertisementId: string, admindIn: string) {
+  deleteAdvertisement(advertisementId: string) {
     return this.http
-      .delete("http://localhost:3000/api/advertisements/" + advertisementId + "/" + admindIn);
+      .delete("http://localhost:3000/api/advertisements/" + advertisementId);
   }
 
 }

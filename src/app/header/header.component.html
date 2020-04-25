@@ -3,12 +3,7 @@
     <a routerLink="/">MyAdvertisments</a>
   </span>
   <span class="spacer"></span>
-  <!--socket.io---span-->
-  <div>
-    <a mat-button (click)="onChange()">Update on serve</a>
-    <label>amountOfUserConnect:</label>
-    <input matInput [(ngModel)]="amountOfUserConnect">
-  </div>
+
   <ul>
     <li>
       <a mat-button routerLink="/create" routerLinkActive="mat-accent">New Advertisement</a>

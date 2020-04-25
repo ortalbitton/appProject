@@ -5,6 +5,8 @@ import { Subscription } from "rxjs";
 import { Advertisement } from "../advertisement.model";
 import { AdvertisementsService } from "../advertisements.service";
 
+import io from 'node_modules/socket.io-client';
+
 @Component({
   selector: "app-ad-list",
   templateUrl: "./ad-list.component.html",
@@ -38,6 +40,10 @@ export class AdListComponent implements OnInit, OnDestroy {
     if (this.advertisements.length == 0) this.isSearch = false;
   }
 
+  socket = io('http://localhost:3000');
+  amountOfUserConnect: number;
+
+
   constructor(public notesService: AdvertisementsService) { }
 
   ngOnInit() {
@@ -53,6 +59,16 @@ export class AdListComponent implements OnInit, OnDestroy {
         this.locations = noteData.locations;
         this.advertisements = noteData.advertisements;
       });
+
+    this.socket.emit('login');
+    this.socket.on('numClients', (data) => {
+      this.amountOfUserConnect = data.numClients;
+    });
+  }
+
+  onChange() {
+    this.socket = io('http://localhost:3000');
+    this.socket.emit('update', this.amountOfUserConnect);
   }
 
   onChangedPage(pageData: PageEvent) {
@@ -63,9 +79,9 @@ export class AdListComponent implements OnInit, OnDestroy {
     this.searchCity = "";
   }
 
-  onDelete(noteId: string, admindIn: string) {
+  onDelete(noteId: string) {
     this.isLoading = true;
-    this.notesService.deleteAdvertisement(noteId, admindIn).subscribe(() => {
+    this.notesService.deleteAdvertisement(noteId).subscribe(() => {
       this.notesService.getAdvertisements(this.notesPerPage, this.currentPage);
     });
   }
