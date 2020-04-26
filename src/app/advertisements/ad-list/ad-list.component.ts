@@ -60,7 +60,6 @@ export class AdListComponent implements OnInit, OnDestroy {
         this.advertisements = noteData.advertisements;
       });
 
-    this.socket.emit('login');
     this.socket.on('numClients', (data) => {
       this.amountOfUserConnect = data.numClients;
     });

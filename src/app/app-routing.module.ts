@@ -7,6 +7,7 @@ import { UserCreateComponent } from "./users/user-create/user-create.component";
 import { UserListComponent } from "./users/user-list/user-list.component";
 
 import { LoginComponent } from "./users/login/login.component";
+import { LogoutComponent } from "./users/logout/logout.component";
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'createUser', component: UserCreateComponent },
   { path: 'editUser/:userId', component: UserCreateComponent },
   { path: 'listofuser', component: UserListComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent },
 ];
 
 @NgModule({

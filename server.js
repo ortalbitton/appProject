@@ -61,7 +61,8 @@ io.on('connection', function (socket) {
 
   var ConnectUser = false;
 
-  socket.on('login', () => {
+  socket.on('login', (usarname) => {
+
     if (ConnectUser) return;
 
     ++numClients;
@@ -69,7 +70,8 @@ io.on('connection', function (socket) {
     io.emit('numClients', {
       numClients: numClients
     });
-    console.log('connect client', numClients);
+    console.log(usarname + ' is connected')
+    console.log('login client', numClients);
   });
 
   socket.on('update', (newnumClients) => {
@@ -79,15 +81,25 @@ io.on('connection', function (socket) {
     console.log('update client', newnumClients);
   });
 
+  socket.on('logout', () => {
+    io.emit('numClients', {
+      numClients: numClients
+    });
+  });
+
+  //לבדןק מתי מגיע לפה
   socket.on('disconnect', () => {
     if (ConnectUser) {
-      numClients--;
-
+      --numClients;
       io.emit('numClients', {
         numClients: numClients
       });
-
-      console.log('disconnected client', numClients + " clents remain");
+      console.log(numClients + ' client is still connected');
     }
   });
+
+  io.emit('numClients', {
+    numClients: numClients
+  });
+
 });
