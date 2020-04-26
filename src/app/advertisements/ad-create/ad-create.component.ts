@@ -5,6 +5,9 @@ import { ActivatedRoute, ParamMap } from "@angular/router";
 import { AdvertisementsService } from "../advertisements.service";
 import { Advertisement } from "../advertisement.model";
 
+import { Admin } from "../admin.model"
+import { AdminsService } from "../admins.service";
+
 @Component({
   selector: "app-ad-create",
   templateUrl: "./ad-create.component.html",
@@ -18,11 +21,12 @@ export class AdCreateComponent implements OnInit {
   private mode = "create";
   private advertisementId: string;
 
-  isVisibility = false;
+  admins: Admin[] = [];
 
   constructor(
     public advertisementsService: AdvertisementsService,
     public route: ActivatedRoute,
+    private adminsService: AdminsService
   ) { }
 
   ngOnInit() {
@@ -44,7 +48,6 @@ export class AdCreateComponent implements OnInit {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has("advertisementId")) {
         this.mode = "edit";
-        this.isVisibility = false;
         this.advertisementId = paramMap.get("advertisementId");
         this.isLoading = true;
         this.advertisementsService.getAdvertisement(this.advertisementId).subscribe(noteData => {
@@ -73,9 +76,13 @@ export class AdCreateComponent implements OnInit {
       } else {
         this.mode = "create";
         this.advertisementId = null;
-        this.isVisibility = true;
       }
     });
+
+    this.adminsService.listofAdmins().subscribe(data => {
+      this.admins = data.admins;
+    });
+
   }
 
   onImagePicked(event: Event) {

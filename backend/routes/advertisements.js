@@ -39,32 +39,36 @@ router.post(
   }).single("image"),
   (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
-    var admindBy = new Admin({
+
+    const findQ = Admin.find({
       name: req.body.admindBy
     });
 
-    admindBy.save();
+    findQ
+      .then(documents => {
 
-    const advertisement = new Advertisement({
-      title: req.body.title,
-      content: req.body.content,
-      imagePath: url + "/images/" + req.file.filename,
-      openingHours: req.body.openingHours,
-      closingHours: req.body.closingHours,
-      location: req.body.location,
-      admindBy: admindBy._id
-    });
+        fetched = documents;
 
-    advertisement.save().then(createdNote => {
-      res.status(201).json({
-        message: "Advertisement added successfully",
-        advertisement: {
-          ...createdNote,
-          id: createdNote._id,
-        }
+        const advertisement = new Advertisement({
+          title: req.body.title,
+          content: req.body.content,
+          imagePath: url + "/images/" + req.file.filename,
+          openingHours: req.body.openingHours,
+          closingHours: req.body.closingHours,
+          location: req.body.location,
+          admindBy: fetched[0]._id
+        });
+
+        advertisement.save().then(createdNote => {
+          res.status(201).json({
+            message: "Advertisement added successfully",
+            advertisement: {
+              ...createdNote,
+              id: createdNote._id,
+            }
+          });
+        });
       });
-    });
-
   }
 );
 

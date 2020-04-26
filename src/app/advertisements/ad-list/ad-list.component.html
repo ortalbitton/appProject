@@ -64,7 +64,13 @@
   </mat-expansion-panel>
 </mat-accordion>
 
-
+<form [formGroup]="form" (submit)="onSaveAdmin()" *ngIf="!isLoading">
+  <mat-form-field>
+    <input matInput type="text" formControlName="name" placeholder="admin name">
+    <mat-error *ngIf="form.get('name').invalid">Please enter a name</mat-error>
+  </mat-form-field>
+  <button mat-raised-button color="accent" type="submit">Save Admin</button>
+</form>
 
 <mat-paginator [length]="totalNotes" [pageSize]="notesPerPage" [pageSizeOptions]="pageSizeOptions"
   (page)="onChangedPage($event)" *ngIf="advertisements.length > 0"></mat-paginator>

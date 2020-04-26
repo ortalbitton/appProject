@@ -16,7 +16,8 @@ import {
   MatIconModule,
   MatCheckboxModule,
   MatDatepickerModule,
-  MatListModule
+  MatListModule,
+  MatSelectModule
 } from "@angular/material";
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
@@ -61,7 +62,8 @@ import { LogoutComponent } from './users/logout/logout.component';
     MatDatepickerModule,
     HttpClientModule,
     NgxMaterialTimepickerModule,
-    MatListModule
+    MatListModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

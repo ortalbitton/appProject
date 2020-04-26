@@ -1,9 +1,13 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { PageEvent } from "@angular/material";
 import { Subscription } from "rxjs";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 import { Advertisement } from "../advertisement.model";
 import { AdvertisementsService } from "../advertisements.service";
+
+import { AdminsService } from "../admins.service"
+
 
 import io from 'node_modules/socket.io-client';
 
@@ -43,8 +47,9 @@ export class AdListComponent implements OnInit, OnDestroy {
   socket = io('http://localhost:3000');
   amountOfUserConnect: number;
 
+  form: FormGroup;
 
-  constructor(public notesService: AdvertisementsService) { }
+  constructor(public notesService: AdvertisementsService, private adminsService: AdminsService) { }
 
   ngOnInit() {
     this.isLoading = true;
@@ -59,6 +64,12 @@ export class AdListComponent implements OnInit, OnDestroy {
         this.locations = noteData.locations;
         this.advertisements = noteData.advertisements;
       });
+
+    this.form = new FormGroup({
+      name: new FormControl(null, {
+        validators: [Validators.required]
+      })
+    });
 
     this.socket.on('numClients', (data) => {
       this.amountOfUserConnect = data.numClients;
@@ -101,6 +112,16 @@ export class AdListComponent implements OnInit, OnDestroy {
   onSearchByCity(searchCity: string) {
     return this.filteradvertisements.filter(advertisement =>
       advertisement.location.toLowerCase().indexOf(searchCity.toLowerCase()) !== -1);
+  }
+
+  onSaveAdmin() {
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.adminsService.addAdmin(
+      this.form.value.name
+    )
   }
 
   ngOnDestroy() {
