@@ -6,10 +6,11 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Advertisement } from "../advertisement.model";
 import { AdvertisementsService } from "../advertisements.service";
 
+import { Admin } from "../admin.model"
 import { AdminsService } from "../admins.service"
 
+import { UsersService } from "../../users/users.service"
 
-import io from 'node_modules/socket.io-client';
 
 @Component({
   selector: "app-ad-list",
@@ -28,6 +29,7 @@ export class AdListComponent implements OnInit, OnDestroy {
   pageSizeOptions = [1, 2, 5, 10];
   private notesSub: Subscription;
   isSearch = false;
+  isAdmin: boolean;
 
   searchTitle: string;
   searchOpeningHours: string;
@@ -44,12 +46,12 @@ export class AdListComponent implements OnInit, OnDestroy {
     if (this.advertisements.length == 0) this.isSearch = false;
   }
 
-  socket = io('http://localhost:3000');
-  amountOfUserConnect: number;
-
   form: FormGroup;
+  admins: Admin[] = [];
 
-  constructor(public notesService: AdvertisementsService, private adminsService: AdminsService) { }
+  username;
+
+  constructor(public notesService: AdvertisementsService, private adminsService: AdminsService, private usersService: UsersService) { }
 
   ngOnInit() {
     this.isLoading = true;
@@ -65,21 +67,28 @@ export class AdListComponent implements OnInit, OnDestroy {
         this.advertisements = noteData.advertisements;
       });
 
+    //form create admin
     this.form = new FormGroup({
       name: new FormControl(null, {
         validators: [Validators.required]
       })
     });
 
-    this.socket.on('numClients', (data) => {
-      this.amountOfUserConnect = data.numClients;
+
+    //list of admin & name of user from login
+    this.adminsService.listofAdmins().subscribe(data => {
+      this.admins = data.admins;
+      this.username = this.usersService.getUsername();
+      for (var i = 0; i < this.admins.length; i++) {
+        if (this.admins[i].name == this.username.name)
+          this.isAdmin = true;
+        else
+          this.isAdmin = false;
+      }
     });
+
   }
 
-  onChange() {
-    this.socket = io('http://localhost:3000');
-    this.socket.emit('update', this.amountOfUserConnect);
-  }
 
   onChangedPage(pageData: PageEvent) {
     this.isLoading = true;

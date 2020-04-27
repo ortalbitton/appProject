@@ -29,7 +29,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserCreateComponent } from './users/user-create/user-create.component';
 import { LoginComponent } from './users/login/login.component';
-import { LogoutComponent } from './users/logout/logout.component';
+import { UsernameComponent } from './advertisements/ad-list/username.component';
+import { SocketIoComponent } from './advertisements/ad-list/socket.io.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { LogoutComponent } from './users/logout/logout.component';
     UserListComponent,
     UserCreateComponent,
     LoginComponent,
-    LogoutComponent
+    UsernameComponent,
+    SocketIoComponent
   ],
   imports: [
     BrowserModule,

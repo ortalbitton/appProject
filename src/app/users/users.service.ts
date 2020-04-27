@@ -14,6 +14,8 @@ export class UsersService {
   private users: User[] = [];
   private usersUpdated = new Subject<{ users: User[]; userCount: number }>();
 
+  private username = {};
+
   constructor(private http: HttpClient, private router: Router) { }
 
 
@@ -59,7 +61,7 @@ export class UsersService {
         noteData
       )
       .subscribe(responseData => {
-        this.router.navigate(["listofuser"]);
+        this.router.navigate(["login"]);
       });
   }
 
@@ -90,10 +92,19 @@ export class UsersService {
       .delete("http://localhost:3000/api/users/" + userId);
   }
 
+  //for login
   list() {
     return this.http
       .get<{ message: string; users: any, maxUsers: number }>(
         "http://localhost:3000/api/users"
       )
   }
+
+  setUsername(option, name) {
+    this.username[option] = name;
+  }
+  getUsername() {
+    return this.username;
+  }
+
 }

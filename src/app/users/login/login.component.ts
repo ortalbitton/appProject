@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
     this.usersService.list().subscribe(data => {
       for (var i = 0; i < data.maxUsers; i++) {
         if (this.username == data.users[i].name && this.password == data.users[i].password) {
+          this.usersService.setUsername('name', data.users[i].name);
           this.socket.emit('login', this.username);
           this.router.navigate(["/"]);
         } else {

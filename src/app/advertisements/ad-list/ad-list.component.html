@@ -1,9 +1,19 @@
+<app-username></app-username>
+
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<!--socket.io---span-->
-<mat-form-field class="socket">
-  <a mat-button (click)="onChange()">Update</a>
-  <label>amountOfUserConnect: <input matInput [(ngModel)]="amountOfUserConnect"></label>
-</mat-form-field>
+
+<!--socket.io---->
+<app-socket *ngIf="isAdmin"></app-socket>
+
+<!--form create admin-->
+<div class="formCreate" *ngIf="!isLoading && isAdmin">
+  <form [formGroup]="form" (submit)="onSaveAdmin()">
+    <mat-form-field>
+      <input matInput type="text" formControlName="name" placeholder="admin name">
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit">Save Admin</button>
+  </form>
+</div>
 
 <table class="table" cellspacing="0">
   <tr>
@@ -57,20 +67,12 @@
     <p>{{ advertisement.closingHours }}</p>
     <p>{{ advertisement.location }}</p>
     <p>admindBy: {{ advertisement.admindBy.name }}</p>
-    <mat-action-row>
+    <mat-action-row *ngIf="isAdmin">
       <a mat-button color="primary" [routerLink]="['/edit', advertisement.id]">EDIT</a>
       <button mat-button color="warn" (click)="onDelete(advertisement.id)">DELETE</button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
-
-<form [formGroup]="form" (submit)="onSaveAdmin()" *ngIf="!isLoading">
-  <mat-form-field>
-    <input matInput type="text" formControlName="name" placeholder="admin name">
-    <mat-error *ngIf="form.get('name').invalid">Please enter a name</mat-error>
-  </mat-form-field>
-  <button mat-raised-button color="accent" type="submit">Save Admin</button>
-</form>
 
 <mat-paginator [length]="totalNotes" [pageSize]="notesPerPage" [pageSizeOptions]="pageSizeOptions"
   (page)="onChangedPage($event)" *ngIf="advertisements.length > 0"></mat-paginator>

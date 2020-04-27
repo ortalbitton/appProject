@@ -108,6 +108,7 @@ router.get("/:id", (req, res, next) => {
   });
 });
 
+
 router.delete("/:id", (req, res, next) => {
   User.deleteOne({
     _id: req.params.id

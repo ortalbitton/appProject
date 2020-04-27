@@ -3,13 +3,12 @@
     <a routerLink="/">MyAdvertisments</a>
   </span>
   <span class="spacer"></span>
-
   <ul>
     <li>
       <a mat-button routerLink="/create" routerLinkActive="mat-accent">New Advertisement</a>
       <a mat-button routerLink="/listofuser" routerLinkActive="mat-accent">List of users</a>
       <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
-      <a mat-button routerLink="/logout" routerLinkActive="mat-accent">Logout</a>
+      <a mat-button routerLinkActive="mat-accent" (click)="onlogout()">Logout</a>
     </li>
   </ul>
 </mat-toolbar>
