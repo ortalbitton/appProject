@@ -47,6 +47,7 @@ export class AdListComponent implements OnInit, OnDestroy {
   }
 
   form: FormGroup;
+
   admins: Admin[] = [];
 
   username;
@@ -74,11 +75,12 @@ export class AdListComponent implements OnInit, OnDestroy {
       })
     });
 
+    //name of user from login
+    this.username = this.usersService.getUsername();
 
-    //list of admin & name of user from login
+    //list of admin
     this.adminsService.listofAdmins().subscribe(data => {
       this.admins = data.admins;
-      this.username = this.usersService.getUsername();
       for (var i = 0; i < this.admins.length; i++) {
         if (this.admins[i].name == this.username.name)
           this.isAdmin = true;

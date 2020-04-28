@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
 
-//import { UsersService } from "../users/users.service";
+import { UsersService } from "../users/users.service";
 
 import io from 'node_modules/socket.io-client';
 
@@ -11,19 +11,29 @@ import io from 'node_modules/socket.io-client';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  //username;
+  username;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private usersService: UsersService) { }
 
   ngOnInit() {
-    //this.username = this.usersService.getUsername();
+    this.username = this.usersService.getUsername();
   }
 
-  onlogout() {
-    //this.username = "";
-    const socket = io('http://localhost:3000');
-    socket.emit('logout');
-    this.router.navigate(["login"]);
+  onclick(routerLink: string) {
+
+    if (this.username.name == undefined)
+      this.router.navigate(['login']);
+    else
+      this.router.navigate([routerLink]);
+
+    if (routerLink == '/logout') {
+      const socket = io('http://localhost:3000');
+      socket.emit('logout');
+      this.usersService.setUsername('name', undefined);
+      this.router.navigate(['login']);
+    }
+
   }
+
 
 }

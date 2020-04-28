@@ -1,4 +1,11 @@
 <ul *ngFor="let user of users">
-  <li>{{user.name}} {{user.password}} <button mat-button color="warn" (click)="onDelete(user.id)">DELETE</button> <a
-      mat-button color="primary" [routerLink]="['/editUser', user.id]">EDIT</a></li>
+  <li *ngIf="!isSearch">{{user.name}} {{user.password}} <button mat-button color="warn"
+      (click)="onDelete(user.id)">DELETE</button> <a mat-button color="primary"
+      [routerLink]="['/editUser', user.id]">EDIT</a></li>
+</ul>
+
+<ul *ngFor="let information of Userinformation">
+  <li *ngIf="isSearch">{{information.name}} {{information.password}} <button mat-button color="warn"
+      (click)="onDelete(information.id)">DELETE</button> <a mat-button color="primary"
+      [routerLink]="['/editUser', information.id]">EDIT</a></li>
 </ul>

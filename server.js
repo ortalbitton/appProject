@@ -85,6 +85,7 @@ io.on('connection', function (socket) {
     io.emit('numClients', {
       numClients: numClients
     });
+    console.log('logout client', numClients);
   });
 
   //לבדןק מתי מגיע לפה
