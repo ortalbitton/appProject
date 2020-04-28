@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   onclick(routerLink: string) {
 
     if (this.username.name == undefined)
-      this.router.navigate(['login']);
+      this.router.navigate(['/']);
     else
       this.router.navigate([routerLink]);
 
@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
       const socket = io('http://localhost:3000');
       socket.emit('logout');
       this.usersService.setUsername('name', undefined);
-      this.router.navigate(['login']);
+      this.router.navigate(['/']);
     }
 
   }

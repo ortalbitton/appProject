@@ -61,7 +61,7 @@ export class UsersService {
         noteData
       )
       .subscribe(responseData => {
-        this.router.navigate(["login"]);
+        this.router.navigate(["/"]);
       });
   }
 
@@ -83,7 +83,7 @@ export class UsersService {
     this.http
       .put("http://localhost:3000/api/users/" + id, noteData)
       .subscribe(response => {
-        this.router.navigate(["listofuser"]);
+        this.router.navigate(["users"]);
       });
   }
 

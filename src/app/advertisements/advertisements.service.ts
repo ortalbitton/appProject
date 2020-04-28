@@ -91,7 +91,7 @@ export class AdvertisementsService {
         advertisementData
       )
       .subscribe(responseData => {
-        this.router.navigate(["/"]);
+        this.router.navigate(["advertisements"]);
       });
   }
 
@@ -122,7 +122,7 @@ export class AdvertisementsService {
     this.http
       .put("http://localhost:3000/api/advertisements/" + id, advertisementData)
       .subscribe(response => {
-        this.router.navigate(["/"]);
+        this.router.navigate(["advertisements"]);
       });
   }
 

@@ -1,14 +1,13 @@
 <mat-toolbar color="primary">
   <span>
-    <a routerLink="/">MyAdvertisments</a>
+    <a routerLink="advertisements">MyAdvertisments</a>
   </span>
   <span class="spacer"></span>
   <ul>
     <li>
       <a mat-button routerLinkActive="mat-accent" (click)="onclick('/create')">New
         Advertisement</a>
-      <a mat-button routerLinkActive="mat-accent" (click)="onclick('/listofuser')">Information</a>
-      <!----<a mat-button routerLinkActive="mat-accent" (click)="onclick('/login')">Login</a>-->
+      <a mat-button routerLinkActive="mat-accent" (click)="onclick('/users')">Information</a>
       <a mat-button routerLinkActive="mat-accent" (click)="onclick('/logout')">Logout</a>
     </li>
   </ul>

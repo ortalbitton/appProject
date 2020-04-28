@@ -5,7 +5,5 @@
 </ul>
 
 <ul *ngFor="let information of Userinformation">
-  <li *ngIf="isSearch">{{information.name}} {{information.password}} <button mat-button color="warn"
-      (click)="onDelete(information.id)">DELETE</button> <a mat-button color="primary"
-      [routerLink]="['/editUser', information.id]">EDIT</a></li>
+  <li *ngIf="isSearch">name:{{information.name}} password:{{information.password}} </li>
 </ul>

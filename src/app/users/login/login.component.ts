@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
         if (this.username == data.users[i].name && this.password == data.users[i].password) {
           this.usersService.setUsername('name', data.users[i].name);
           this.socket.emit('login', this.username);
-          this.router.navigate(["/"]);
+          this.router.navigate(["advertisements"]);
         } else {
           this.isInvalid = true;
         }

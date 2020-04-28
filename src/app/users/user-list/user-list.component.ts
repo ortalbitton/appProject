@@ -38,21 +38,28 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.users = noteData.users;
       });
 
-
-    this.adminsService.listofAdmins().subscribe(data => {
-      this.admins = data.admins;
+    this.adminsService.listofAdmins().subscribe(adminData => {
+      this.admins = adminData.admins;
+      //check if this.username.name is not Admin
       for (var i = 0; i < this.admins.length; i++) {
         if (this.username.name != this.admins[i].name) {
           this.Userinformation = this.users.filter(user =>
             user.name == this.username.name);
           this.isSearch = true;
-        } else {
+        }
+      }
+
+      //check if this.username.name is admin
+      for (var i = 0; i < this.admins.length; i++) {
+        if (this.username.name == this.admins[i].name) {
           this.users = this.users.filter(user =>
             user.name != this.username.name);
           this.isSearch = false;
         }
       }
+
     });
+
   }
 
 

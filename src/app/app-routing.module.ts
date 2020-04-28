@@ -10,13 +10,13 @@ import { LoginComponent } from "./users/login/login.component";
 
 
 const routes: Routes = [
-  { path: '', component: AdListComponent },
+  { path: 'advertisements', component: AdListComponent },
   { path: 'create', component: AdCreateComponent },
   { path: 'edit/:advertisementId', component: AdCreateComponent },
   { path: 'createUser', component: UserCreateComponent },
   { path: 'editUser/:userId', component: UserCreateComponent },
-  { path: 'listofuser', component: UserListComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'users', component: UserListComponent },
+  { path: '', component: LoginComponent }
 ];
 
 @NgModule({

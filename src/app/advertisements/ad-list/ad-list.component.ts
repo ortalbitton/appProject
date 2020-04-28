@@ -29,7 +29,6 @@ export class AdListComponent implements OnInit, OnDestroy {
   pageSizeOptions = [1, 2, 5, 10];
   private notesSub: Subscription;
   isSearch = false;
-  isAdmin: boolean;
 
   searchTitle: string;
   searchOpeningHours: string;
@@ -49,6 +48,7 @@ export class AdListComponent implements OnInit, OnDestroy {
   form: FormGroup;
 
   admins: Admin[] = [];
+  isAdmin = false;
 
   username;
 
@@ -84,8 +84,6 @@ export class AdListComponent implements OnInit, OnDestroy {
       for (var i = 0; i < this.admins.length; i++) {
         if (this.admins[i].name == this.username.name)
           this.isAdmin = true;
-        else
-          this.isAdmin = false;
       }
     });
 

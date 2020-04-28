@@ -25,7 +25,7 @@ export class AdminsService {
         advertisementData
       )
       .subscribe(responseData => {
-        this.router.navigate(["/"]);
+        this.router.navigate(["advertisements"]);
       });
   }
 
