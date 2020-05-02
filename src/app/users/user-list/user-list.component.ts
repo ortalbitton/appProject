@@ -8,6 +8,7 @@ import { UsersService } from "../users.service";
 import { Admin } from "../../advertisements/admin.model"
 import { AdminsService } from "../../advertisements/admins.service"
 
+import { AuthService } from "../../sharedServices/auth.service"
 
 @Component({
   selector: 'app-user-list',
@@ -22,15 +23,15 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   Userinformation: User[] = [];
   isSearch: boolean;
-  username;
+  username: string;
 
   admins: Admin[] = [];
 
-  constructor(public usersService: UsersService, public router: Router, private adminsService: AdminsService) { }
+  constructor(public usersService: UsersService, public router: Router, private adminsService: AdminsService, private authService: AuthService) { }
 
   ngOnInit() {
     this.usersService.getUsers();
-    this.username = this.usersService.getUsername();
+    this.username = this.authService.getUsername();
     this.notesSub = this.usersService
       .getUserUpdateListener()
       .subscribe((noteData: { users: User[], userCount: number }) => {
@@ -42,18 +43,18 @@ export class UserListComponent implements OnInit, OnDestroy {
       this.admins = adminData.admins;
       //check if this.username.name is not Admin
       for (var i = 0; i < this.admins.length; i++) {
-        if (this.username.name != this.admins[i].name) {
+        if (this.username != this.admins[i].name) {
           this.Userinformation = this.users.filter(user =>
-            user.name == this.username.name);
+            user.name == this.username);
           this.isSearch = true;
         }
       }
 
       //check if this.username.name is admin
       for (var i = 0; i < this.admins.length; i++) {
-        if (this.username.name == this.admins[i].name) {
+        if (this.username == this.admins[i].name) {
           this.users = this.users.filter(user =>
-            user.name != this.username.name);
+            user.name != this.username);
           this.isSearch = false;
         }
       }

@@ -39,7 +39,9 @@ router.post(
   (req, res, next) => {
     const user = new User({
       name: req.body.name,
-      password: req.body.password
+      password: req.body.password,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude
     });
 
     user.save().then(createdUser => {
@@ -64,6 +66,8 @@ router.put(
       _id: req.body.id,
       name: req.body.name,
       password: req.body.password,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude
     });
     console.log(user);
     User.updateOne({
@@ -107,6 +111,7 @@ router.get("/:id", (req, res, next) => {
     }
   });
 });
+
 
 
 router.delete("/:id", (req, res, next) => {

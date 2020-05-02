@@ -19,8 +19,7 @@ export class UserCreateComponent implements OnInit {
 
   constructor(
     public usersService: UsersService,
-    public route: ActivatedRoute
-  ) { }
+    public route: ActivatedRoute) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -29,6 +28,12 @@ export class UserCreateComponent implements OnInit {
       }),
       password: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(9)]
+      }),
+      latitude: new FormControl(null, {
+        validators: [Validators.required]
+      }),
+      longitude: new FormControl(null, {
+        validators: [Validators.required]
       })
     });
 
@@ -42,11 +47,15 @@ export class UserCreateComponent implements OnInit {
           this.user = {
             id: userData._id,
             name: userData.name,
-            password: userData.password
+            password: userData.password,
+            latitude: userData.latitude,
+            longitude: userData.longitude
           };
           this.form.setValue({
             name: this.user.name,
-            password: this.user.password
+            password: this.user.password,
+            latitude: this.user.latitude,
+            longitude: this.user.longitude
           });
         });
       } else {
@@ -65,12 +74,16 @@ export class UserCreateComponent implements OnInit {
       this.usersService.addUser(
         this.form.value.name,
         this.form.value.password,
+        this.form.value.latitude,
+        this.form.value.longitude
       );
     } else {
       this.usersService.updateUser(
         this.userId,
         this.form.value.name,
-        this.form.value.password
+        this.form.value.password,
+        this.form.value.latitude,
+        this.form.value.longitude
       );
     }
     this.form.reset();

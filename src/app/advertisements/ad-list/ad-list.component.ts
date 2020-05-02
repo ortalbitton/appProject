@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { PageEvent } from "@angular/material";
 import { Subscription } from "rxjs";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Router } from '@angular/router';
 
 import { Advertisement } from "../advertisement.model";
 import { AdvertisementsService } from "../advertisements.service";
@@ -9,8 +10,10 @@ import { AdvertisementsService } from "../advertisements.service";
 import { Admin } from "../admin.model"
 import { AdminsService } from "../admins.service"
 
-import { UsersService } from "../../users/users.service"
+import { AuthService } from "../../sharedServices/auth.service"
 
+
+import io from 'node_modules/socket.io-client';
 
 @Component({
   selector: "app-ad-list",
@@ -50,9 +53,17 @@ export class AdListComponent implements OnInit, OnDestroy {
   admins: Admin[] = [];
   isAdmin = false;
 
-  username;
+  username: string;
 
-  constructor(public notesService: AdvertisementsService, private adminsService: AdminsService, private usersService: UsersService) { }
+  socket = io('http://localhost:3000');
+
+  constructor(public notesService: AdvertisementsService, private router: Router,
+    private adminsService: AdminsService, private authService: AuthService) {
+    //when I am already login 
+    if (authService.authenticated == true) {
+      this.router.navigate(["advertisements"]);
+    }
+  }
 
   ngOnInit() {
     this.isLoading = true;
@@ -76,13 +87,13 @@ export class AdListComponent implements OnInit, OnDestroy {
     });
 
     //name of user from login
-    this.username = this.usersService.getUsername();
+    this.username = this.authService.getUsername();
 
     //list of admin
     this.adminsService.listofAdmins().subscribe(data => {
       this.admins = data.admins;
       for (var i = 0; i < this.admins.length; i++) {
-        if (this.admins[i].name == this.username.name)
+        if (this.admins[i].name == this.username)
           this.isAdmin = true;
       }
     });

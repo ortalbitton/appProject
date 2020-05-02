@@ -5,9 +5,7 @@ import { AdListComponent } from "./advertisements/ad-list/ad-list.component";
 import { AdCreateComponent } from "./advertisements/ad-create/ad-create.component";
 import { UserCreateComponent } from "./users/user-create/user-create.component";
 import { UserListComponent } from "./users/user-list/user-list.component";
-
 import { LoginComponent } from "./users/login/login.component";
-
 
 const routes: Routes = [
   { path: 'advertisements', component: AdListComponent },

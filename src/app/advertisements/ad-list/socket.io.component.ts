@@ -29,7 +29,6 @@ export class SocketIoComponent implements OnInit {
   socket = io('http://localhost:3000');
   amountOfUserConnect: number;
 
-
   constructor() { }
 
   ngOnInit() {

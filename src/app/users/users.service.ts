@@ -14,8 +14,6 @@ export class UsersService {
   private users: User[] = [];
   private usersUpdated = new Subject<{ users: User[]; userCount: number }>();
 
-  private username = {};
-
   constructor(private http: HttpClient, private router: Router) { }
 
 
@@ -31,7 +29,9 @@ export class UsersService {
               return {
                 name: note.name,
                 password: note.password,
-                id: note._id
+                id: note._id,
+                latitude: note.latitude,
+                longitude: note.longitude
               };
             }),
             maxUsers: noteData.maxUsers
@@ -51,10 +51,12 @@ export class UsersService {
     return this.usersUpdated.asObservable();
   }
 
-  addUser(name: string, password: string) {
+  addUser(name: string, password: string, latitude: number, longitude: number) {
     const noteData = new FormData();
     noteData.append("name", name);
     noteData.append("password", password);
+    noteData.append("latitude", latitude.toString());
+    noteData.append("longitude", longitude.toString());
     this.http
       .post<{ message: string; user: User }>(
         "http://localhost:3000/api/users",
@@ -70,15 +72,19 @@ export class UsersService {
       _id: string;
       name: string;
       password: string;
+      latitude: number;
+      longitude: number;
     }>("http://localhost:3000/api/users/" + id);
   }
 
-  updateUser(id: string, name: string, password: string) {
+  updateUser(id: string, name: string, password: string, latitude: number, longitude: number) {
     let noteData: User | FormData;
     noteData = {
       id: id,
       name: name,
       password: password,
+      latitude: latitude,
+      longitude: longitude
     };
     this.http
       .put("http://localhost:3000/api/users/" + id, noteData)
@@ -100,11 +106,6 @@ export class UsersService {
       )
   }
 
-  setUsername(option, name) {
-    this.username[option] = name;
-  }
-  getUsername() {
-    return this.username;
-  }
-
 }
+
+

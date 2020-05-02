@@ -20,6 +20,7 @@ import {
   MatSelectModule
 } from "@angular/material";
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet'
 
 import { AppComponent } from "./app.component";
 import { AdCreateComponent } from "./advertisements/ad-create/ad-create.component";
@@ -31,6 +32,8 @@ import { UserCreateComponent } from './users/user-create/user-create.component';
 import { LoginComponent } from './users/login/login.component';
 import { UsernameComponent } from './advertisements/ad-list/username.component';
 import { SocketIoComponent } from './advertisements/ad-list/socket.io.component';
+import { MapComponent } from './users/map/map.component';
+
 
 @NgModule({
   declarations: [
@@ -42,7 +45,8 @@ import { SocketIoComponent } from './advertisements/ad-list/socket.io.component'
     UserCreateComponent,
     LoginComponent,
     UsernameComponent,
-    SocketIoComponent
+    SocketIoComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +69,8 @@ import { SocketIoComponent } from './advertisements/ad-list/socket.io.component'
     HttpClientModule,
     NgxMaterialTimepickerModule,
     MatListModule,
-    MatSelectModule
+    MatSelectModule,
+    LeafletModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UsersService } from "../../users/users.service";
+import { AuthService } from "../../sharedServices/auth.service"
 
 @Component({
   selector: 'app-username',
   template: `
   <div>
-     <h1>hello: {{username.name}}</h1>
+     <h1>hello: {{username}}</h1>
   </div>
   `,
   styles: [
@@ -17,12 +17,12 @@ import { UsersService } from "../../users/users.service";
 })
 export class UsernameComponent implements OnInit {
 
-  username;
+  username: string;
 
-  constructor(private usersService: UsersService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.username = this.usersService.getUsername();
+    this.username = this.authService.getUsername();
   }
 
 }

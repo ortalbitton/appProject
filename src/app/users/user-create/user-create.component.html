@@ -10,6 +10,17 @@
       <mat-error *ngIf="form.get('password').invalid">Please enter a advertisment title.</mat-error>
     </mat-form-field>
 
+    <mat-form-field>
+      <input matInput type="text" formControlName="latitude" placeholder="latitude">
+      <mat-error *ngIf="form.get('latitude').invalid">Please enter a advertisment title.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="longitude" placeholder="longitude">
+      <mat-error *ngIf="form.get('longitude').invalid">Please enter a advertisment title.</mat-error>
+    </mat-form-field>
+
+
     <button mat-raised-button color="accent" type="submit">Save</button>
   </form>
 </mat-card>
