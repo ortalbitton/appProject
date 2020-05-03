@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../sharedServices/auth.service'
 
 import io from 'node_modules/socket.io-client';
 
@@ -29,12 +30,17 @@ export class SocketIoComponent implements OnInit {
   socket = io('http://localhost:3000');
   amountOfUserConnect: number;
 
-  constructor() { }
+  username: string;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.socket.on('numClients', (data) => {
-      this.amountOfUserConnect = data.numClients;
-    });
+    //when I am already login 
+    if (this.authService.authenticated == true) {
+      this.socket.on('numClients', (data) => {
+        this.amountOfUserConnect = data.numClients;
+      });
+    }
   }
 
   onChange() {

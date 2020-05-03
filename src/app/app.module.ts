@@ -20,7 +20,6 @@ import {
   MatSelectModule
 } from "@angular/material";
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet'
 
 import { AppComponent } from "./app.component";
 import { AdCreateComponent } from "./advertisements/ad-create/ad-create.component";
@@ -69,8 +68,7 @@ import { MapComponent } from './users/map/map.component';
     HttpClientModule,
     NgxMaterialTimepickerModule,
     MatListModule,
-    MatSelectModule,
-    LeafletModule
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

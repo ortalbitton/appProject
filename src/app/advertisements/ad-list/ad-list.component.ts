@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { PageEvent } from "@angular/material";
+import { PageEvent } from "@angular/material/paginator";
 import { Subscription } from "rxjs";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
@@ -11,9 +11,6 @@ import { Admin } from "../admin.model"
 import { AdminsService } from "../admins.service"
 
 import { AuthService } from "../../sharedServices/auth.service"
-
-
-import io from 'node_modules/socket.io-client';
 
 @Component({
   selector: "app-ad-list",
@@ -54,8 +51,6 @@ export class AdListComponent implements OnInit, OnDestroy {
   isAdmin = false;
 
   username: string;
-
-  socket = io('http://localhost:3000');
 
   constructor(public notesService: AdvertisementsService, private router: Router,
     private adminsService: AdminsService, private authService: AuthService) {

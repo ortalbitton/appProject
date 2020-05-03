@@ -33,8 +33,6 @@ export class LoginComponent implements OnInit {
     this.authService.logout();
     //when I am already login 
     if (authService.authenticated == true) {
-      this.username = this.authService.getUsername();
-      this.socket.emit('login', this.username);
       this.router.navigate(["advertisements"]);
     }
   }

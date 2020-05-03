@@ -1,71 +1,64 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { icon, latLng, Map, MapOptions, marker, tileLayer } from 'leaflet';
-import { MapPoint } from './map-point.model';
+
+declare var ol: any;
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
+
 export class MapComponent implements OnInit {
 
-  map: Map;
-  mapPoint: MapPoint;
-  options: MapOptions;
-  lastLayer: any;
+  constructor() { }
 
   @Input() latitude: number;
   @Input() longitude: number;
 
-  constructor() {
-  }
+  map: any;
+
 
   ngOnInit() {
-    this.initializeDefaultMapPoint();
-    this.initializeMapOptions();
-  }
-
-  initializeMap(map: Map) {
-    this.map = map;
-    this.createMarker();
-  }
-
-  private initializeMapOptions() {
-    this.options = {
-      zoom: 14,
+    this.map = new ol.Map({
+      target: "map",
       layers: [
-        tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: 'OSM' })
-      ]
-    }
-  }
-
-  private initializeDefaultMapPoint() {
-    this.mapPoint = {
-      latitude: this.latitude,
-      longitude: this.longitude
-    };
-  }
-
-  private createMarker() {
-    this.clearMap();
-    const mapIcon = this.getDefaultIcon();
-    const coordinates = latLng([this.mapPoint.latitude, this.mapPoint.longitude]);
-    this.lastLayer = marker(coordinates).setIcon(mapIcon).addTo(this.map);
-    this.map.setView(coordinates, this.map.getZoom());
-  }
-
-  private getDefaultIcon() {
-    return icon({
-      iconSize: [25, 41],
-      iconAnchor: [13, 41],
-      iconUrl: '../../assets/marker-icon.png'
-
+        new ol.layer.Tile({
+          source: new ol.source.OSM({
+            url: "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          })
+        })
+      ],
+      view: new ol.View({
+        center: ol.proj.fromLonLat([this.longitude, this.latitude]),
+        zoom: 12
+      })
     });
+
+    this.addPoint();
   }
 
-  private clearMap() {
-    if (this.map.hasLayer(this.lastLayer)) this.map.removeLayer(this.lastLayer);
+
+  addPoint() {
+    var vectorLayer = new ol.layer.Vector({
+      source: new ol.source.Vector({
+        features: [new ol.Feature({
+          geometry: new ol.geom.Point(ol.proj.transform([parseFloat(this.longitude.toString()), parseFloat(this.latitude.toString())], 'EPSG:4326', 'EPSG:3857')),
+        })]
+      }),
+      style: new ol.style.Style({
+        image: new ol.style.Icon({
+          anchor: [0.5, 1],
+          anchorXUnits: "fraction",
+          anchorYUnits: "fraction",
+          src: "https://upload.wikimedia.org/wikipedia/commons/e/ec/RedDot.svg"
+        })
+      })
+    });
+
+    this.map.addLayer(vectorLayer);
   }
+
+
+
 
 }
-
