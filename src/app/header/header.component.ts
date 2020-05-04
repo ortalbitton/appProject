@@ -11,6 +11,7 @@ import io from 'node_modules/socket.io-client';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  socket = io('http://localhost:3000');
 
   constructor(private authService: AuthService) { }
 

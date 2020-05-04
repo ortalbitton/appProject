@@ -30,8 +30,6 @@ export class SocketIoComponent implements OnInit {
   socket = io('http://localhost:3000');
   amountOfUserConnect: number;
 
-  username: string;
-
   constructor(private authService: AuthService) { }
 
   ngOnInit() {

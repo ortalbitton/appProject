@@ -60,7 +60,6 @@ var numClients = 0;
 io.on('connection', function (socket) {
 
   var ConnectUser = false;
-  var DisconnectUser = false;
 
   io.emit('numClients', {
     numClients: numClients
@@ -87,22 +86,16 @@ io.on('connection', function (socket) {
   });
 
   socket.on('logout', () => {
-    if (!DisconnectUser) {
-      --numClients;
-      DisconnectUser = true;
-      io.emit('numClients', {
-        numClients: numClients
-      });
-    }
-    console.log('logout client', numClients);
+    --numClients;
+    io.emit('numClients', {
+      numClients: numClients
+    });
+    console.log('disconnect client');
+
   });
 
   socket.on('disconnect', () => {
-    if (ConnectUser && !DisconnectUser) {
-      --numClients;
-      io.emit('numClients', {
-        numClients: numClients
-      });
+    if (ConnectUser) {
       console.log(numClients + ' client is still connected');
     }
   });
