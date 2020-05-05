@@ -100,3 +100,45 @@ io.on('connection', function (socket) {
     }
   });
 });
+
+const puppeteer = require('puppeteer');
+
+
+let scrape = async () => {
+  const browser = await puppeteer.launch({
+    headless: true
+  });
+  const page = await browser.newPage();
+
+  await page.goto('http://localhost:4200/', {
+    waitUntil: 'domcontentloaded',
+    timeout: 0
+  });
+
+
+  const result = await page.evaluate(() => {
+
+    let title = document.querySelector('body > app-root > main > app-login > h1').innerText;
+    let content = document.querySelector('body > app-root > main > app-login > mat-card > mat-card-content:nth-child(1)').innerText;
+    return {
+      title,
+      content
+    }
+  });
+
+  await browser.close();
+  return result;
+};
+
+scrape().then((value) => {
+  const Login = require("../appProject/backend/models/login");
+  const login = new Login({
+    title: value.title,
+    content: value.content
+  });
+
+  login.save(); // Success!
+
+
+  console.log(login);
+});
