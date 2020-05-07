@@ -16,17 +16,17 @@ export class AdminsService {
         "http://localhost:3000/api/admins")
   }
 
-  addAdmin(name: string) {
-    const advertisementData = new FormData();
-    advertisementData.append("name", name);
+  addAdmin(name: string, password: string) {
+    const adminData = new FormData();
+    adminData.append("name", name);
+    adminData.append("password", password);
     this.http
       .post<{ message: string; admin: Admin; }>(
         "http://localhost:3000/api/admins",
-        advertisementData
+        adminData
       )
       .subscribe(responseData => {
-        this.router.navigate(["advertisements"]);
+        this.router.navigate(["loginAdmin"]);
       });
   }
-
 }

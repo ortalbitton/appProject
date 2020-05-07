@@ -6,6 +6,8 @@ import { AdCreateComponent } from "./advertisements/ad-create/ad-create.componen
 import { UserCreateComponent } from "./users/user-create/user-create.component";
 import { UserListComponent } from "./users/user-list/user-list.component";
 import { LoginComponent } from "./users/login/login.component";
+import { LoginAdminComponent } from "./admins/login-admin/login-admin.component";
+import { AdminCreateComponent } from "./admins/admin-create/admin-create.component";
 
 const routes: Routes = [
   { path: 'advertisements', component: AdListComponent },
@@ -14,7 +16,9 @@ const routes: Routes = [
   { path: 'createUser', component: UserCreateComponent },
   { path: 'editUser/:userId', component: UserCreateComponent },
   { path: 'users', component: UserListComponent },
-  { path: '', component: LoginComponent }
+  { path: '', component: LoginComponent },
+  { path: 'createAdmin', component: AdminCreateComponent },
+  { path: 'loginAdmin', component: LoginAdminComponent },
 ];
 
 @NgModule({

@@ -5,8 +5,8 @@ import { Subscription } from "rxjs";
 import { User } from "../user.model";
 import { UsersService } from "../users.service";
 
-import { Admin } from "../../advertisements/admin.model"
-import { AdminsService } from "../../advertisements/admins.service"
+import { Admin } from "../../admins/admin.model"
+import { AdminsService } from "../../admins/admins.service"
 
 import { AuthService } from "../../sharedServices/auth.service"
 

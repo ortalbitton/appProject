@@ -6,7 +6,7 @@ import { Router } from "@angular/router";
 
 import { Advertisement } from "./advertisement.model";
 
-import { Admin } from "./admin.model";
+import { Admin } from "../admins/admin.model";
 
 @Injectable({ providedIn: "root" })
 export class AdvertisementsService {

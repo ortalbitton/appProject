@@ -21,13 +21,19 @@
           </mat-form-field>
         </td>
       </tr>
+      <tr>
+        <td>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="adminCode" [(ngModel)]="adminCode" type="password" name="adminCode" required>
+          </mat-form-field>
+        </td>
+      </tr>
     </table>
     <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
     <p class="info-text mat-body-1" *ngIf="isInvalid">Invalid credentials</p>
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button (click)="login()" color="primary">Login</button>
-    <a mat-raised-button color="primary" routerLink="/createUser">Register</a>
-    <a mat-raised-button color="primary" routerLink="/loginAdmin">GO to admin</a>
+    <a mat-raised-button color="primary" routerLink="/createAdmin">Register</a>
   </mat-card-actions>
 </mat-card>

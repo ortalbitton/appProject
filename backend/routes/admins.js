@@ -58,7 +58,8 @@ router.post(
   (req, res, next) => {
 
     const admin = new Admin({
-      name: req.body.name
+      name: req.body.name,
+      password: req.body.password
     });
 
     admin.save().then(createdAdmin => {

@@ -5,16 +5,6 @@
 <!--socket.io---->
 <app-socket *ngIf="isAdmin"></app-socket>
 
-<!--form create admin-->
-<div class="formCreate" *ngIf="!isLoading && isAdmin">
-  <form [formGroup]="form" (submit)="onSaveAdmin()">
-    <mat-form-field>
-      <input matInput type="text" formControlName="name" placeholder="admin name">
-    </mat-form-field>
-    <button mat-raised-button color="accent" type="submit">Save Admin</button>
-  </form>
-</div>
-
 <table class="table" cellspacing="0">
   <tr>
     <td><label>search by 3 param</label></td>

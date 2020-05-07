@@ -32,6 +32,8 @@ import { LoginComponent } from './users/login/login.component';
 import { UsernameComponent } from './advertisements/ad-list/username.component';
 import { SocketIoComponent } from './advertisements/ad-list/socket.io.component';
 import { MapComponent } from './users/map/map.component';
+import { LoginAdminComponent } from "./admins/login-admin/login-admin.component";
+import { AdminCreateComponent } from "./admins/admin-create/admin-create.component";
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { MapComponent } from './users/map/map.component';
     LoginComponent,
     UsernameComponent,
     SocketIoComponent,
-    MapComponent
+    MapComponent,
+    LoginAdminComponent,
+    AdminCreateComponent
   ],
   imports: [
     BrowserModule,

@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
 import { Advertisement } from "../advertisement.model";
 import { AdvertisementsService } from "../advertisements.service";
 
-import { Admin } from "../admin.model"
-import { AdminsService } from "../admins.service"
+import { Admin } from "../../admins/admin.model"
+import { AdminsService } from "../../admins/admins.service"
 
 import { AuthService } from "../../sharedServices/auth.service"
 
@@ -45,8 +45,6 @@ export class AdListComponent implements OnInit, OnDestroy {
     if (this.advertisements.length == 0) this.isSearch = false;
   }
 
-  form: FormGroup;
-
   admins: Admin[] = [];
   isAdmin = false;
 
@@ -74,12 +72,6 @@ export class AdListComponent implements OnInit, OnDestroy {
         this.advertisements = noteData.advertisements;
       });
 
-    //form create admin
-    this.form = new FormGroup({
-      name: new FormControl(null, {
-        validators: [Validators.required]
-      })
-    });
 
     //name of user from login
     this.username = this.authService.getUsername();
@@ -129,15 +121,15 @@ export class AdListComponent implements OnInit, OnDestroy {
       advertisement.location.toLowerCase().indexOf(searchCity.toLowerCase()) !== -1);
   }
 
-  onSaveAdmin() {
-    if (this.form.invalid) {
-      return;
-    }
+  // onSaveAdmin() {
+  //   if (this.form.invalid) {
+  //     return;
+  //   }
 
-    this.adminsService.addAdmin(
-      this.form.value.name
-    )
-  }
+  //   this.adminsService.addAdmin(
+  //     this.form.value.name
+  //   )
+  // }
 
   ngOnDestroy() {
     this.notesSub.unsubscribe();

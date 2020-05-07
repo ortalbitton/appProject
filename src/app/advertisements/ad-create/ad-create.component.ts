@@ -5,8 +5,8 @@ import { ActivatedRoute, ParamMap } from "@angular/router";
 import { AdvertisementsService } from "../advertisements.service";
 import { Advertisement } from "../advertisement.model";
 
-import { Admin } from "../admin.model"
-import { AdminsService } from "../admins.service";
+import { Admin } from "../../admins/admin.model"
+import { AdminsService } from "../../admins/admins.service";
 
 @Component({
   selector: "app-ad-create",
