@@ -9,6 +9,8 @@ import { LoginComponent } from "./users/login/login.component";
 import { LoginAdminComponent } from "./admins/login-admin/login-admin.component";
 import { AdminCreateComponent } from "./admins/admin-create/admin-create.component";
 
+import { D3Component } from "./d3/d3.component";
+
 const routes: Routes = [
   { path: 'advertisements', component: AdListComponent },
   { path: 'create', component: AdCreateComponent },
@@ -19,6 +21,7 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'createAdmin', component: AdminCreateComponent },
   { path: 'loginAdmin', component: LoginAdminComponent },
+  { path: 'd3', component: D3Component },
 ];
 
 @NgModule({

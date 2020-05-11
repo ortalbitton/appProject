@@ -46,8 +46,6 @@ app.use("/api/advertisements", advertisementsRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/admins", adminsRoutes);
 
-
-
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname, "angular", index.html));
 });

@@ -18,7 +18,6 @@ export class LoginAdminComponent implements OnInit {
 
   username: string;
   password: string;
-  adminCode: string;
 
   admins: Admin[] = [];
 
@@ -44,7 +43,7 @@ export class LoginAdminComponent implements OnInit {
       this.admins = userData.admins;
 
       for (var i = 0; i < this.admins.length; i++) {
-        if (this.username == this.admins[i].name && this.password == this.admins[i].password && this.adminCode == "happylife") {
+        if (this.username == this.admins[i].name && this.password == this.admins[i].password) {
           this.authService.authLogin(this.username);
           this.socket.emit('login', this.username);
           this.router.navigate(["advertisements"]);

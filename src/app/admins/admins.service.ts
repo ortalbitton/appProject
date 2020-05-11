@@ -29,4 +29,5 @@ export class AdminsService {
         this.router.navigate(["loginAdmin"]);
       });
   }
+
 }

@@ -6,9 +6,16 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput type="text" formControlName="password" placeholder="admin password">
+      <input matInput type="password" formControlName="password" placeholder="admin password">
       <mat-error *ngIf="form.get('password').invalid">Please enter a password.</mat-error>
     </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="adminCode" type="password" formControlName="adminCode">
+      <mat-error *ngIf="form.get('adminCode').invalid">Please enter a adminCode.</mat-error>
+    </mat-form-field>
+    <p class="info-text mat-body-1" *ngIf="!isCode">the code is incorrect</p>
+    <p class="info-text mat-body-1" *ngIf="isName && isCode">the name is already in the system</p>
 
     <button mat-raised-button color="accent" type="submit">Save</button>
   </form>

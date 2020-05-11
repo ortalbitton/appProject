@@ -21,13 +21,6 @@
           </mat-form-field>
         </td>
       </tr>
-      <tr>
-        <td>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="adminCode" [(ngModel)]="adminCode" type="password" name="adminCode" required>
-          </mat-form-field>
-        </td>
-      </tr>
     </table>
     <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
     <p class="info-text mat-body-1" *ngIf="isInvalid">Invalid credentials</p>

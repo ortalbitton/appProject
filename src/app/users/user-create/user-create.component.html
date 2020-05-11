@@ -19,7 +19,7 @@
       <input matInput type="text" formControlName="longitude" placeholder="longitude">
       <mat-error *ngIf="form.get('longitude').invalid">Please enter a advertisment longitude.</mat-error>
     </mat-form-field>
-
+    <p class="info-text mat-body-1" *ngIf="isName">the name is already in the system</p>
 
     <button mat-raised-button color="accent" type="submit">Save</button>
   </form>

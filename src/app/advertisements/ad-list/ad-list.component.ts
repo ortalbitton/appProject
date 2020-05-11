@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
 import { Subscription } from "rxjs";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
 
 import { Advertisement } from "../advertisement.model";
@@ -120,16 +119,6 @@ export class AdListComponent implements OnInit, OnDestroy {
     return this.filteradvertisements.filter(advertisement =>
       advertisement.location.toLowerCase().indexOf(searchCity.toLowerCase()) !== -1);
   }
-
-  // onSaveAdmin() {
-  //   if (this.form.invalid) {
-  //     return;
-  //   }
-
-  //   this.adminsService.addAdmin(
-  //     this.form.value.name
-  //   )
-  // }
 
   ngOnDestroy() {
     this.notesSub.unsubscribe();

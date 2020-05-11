@@ -16,12 +16,16 @@ export class UserCreateComponent implements OnInit {
   isLoading = false;
   private mode = "create";
   private userId: string;
+  users: User[] = [];
+  flag: boolean = false;
+  isName: boolean;
 
   constructor(
     public usersService: UsersService,
     public route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.isName = false;
     this.form = new FormGroup({
       name: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(9)]
@@ -63,6 +67,11 @@ export class UserCreateComponent implements OnInit {
         this.userId = null;
       }
     });
+
+    this.usersService.list().subscribe(userData => {
+      this.users = userData.users;
+    });
+
   }
 
   onSave() {
@@ -70,13 +79,23 @@ export class UserCreateComponent implements OnInit {
       return;
     }
     this.isLoading = true;
+
+    for (var i = 0; i < this.users.length; i++) {
+      if (this.form.value.name == this.users[i].name) {
+        this.flag = true;
+        this.isName = true;
+      }
+    }
+
     if (this.mode === "create") {
-      this.usersService.addUser(
-        this.form.value.name,
-        this.form.value.password,
-        this.form.value.latitude,
-        this.form.value.longitude
-      );
+      if (this.flag == false) {
+        this.usersService.addUser(
+          this.form.value.name,
+          this.form.value.password,
+          this.form.value.latitude,
+          this.form.value.longitude
+        );
+      }
     } else {
       this.usersService.updateUser(
         this.userId,
@@ -87,6 +106,7 @@ export class UserCreateComponent implements OnInit {
       );
     }
     this.form.reset();
+    this.flag = false;
   }
 
 }
