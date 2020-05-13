@@ -32,59 +32,45 @@
     var app = angular.module('chartApp', []);
     var salesDataToPlot;
 
-    app.controller('SalesController', ['$scope', function ($scope) {
-      $scope.salesData = [{
-          hour: 1,
-          sales: 54
-        },
-        {
-          hour: 2,
-          sales: 66
-        },
-        {
-          hour: 3,
-          sales: 77
-        },
-        {
-          hour: 4,
-          sales: 70
-        },
-        {
-          hour: 5,
-          sales: 60
-        },
-        {
-          hour: 6,
-          sales: 63
-        },
-        {
-          hour: 7,
-          sales: 55
-        },
-        {
-          hour: 8,
-          sales: 47
-        },
-        {
-          hour: 9,
-          sales: 55
-        },
-        {
-          hour: 10,
-          sales: 30
-        }
-      ];
+    app.service('SalesService', ['$http', function ($http) {
+      this.setAd = function () {
+        this.ad = $http.get('http://localhost:3000/api/advertisements');
+        return this.ad;
+      };
     }]);
 
-    app.directive('linearChart', function ($window) {
+
+    app.controller('SalesController', ['$scope', 'SalesService', function ($scope, SalesService) {
+
+      SalesService.setAd().then(function (Ad) {
+        $scope.salesData = Ad.data.locations;
+      });
+
+      /*$scope.salesData = [{
+          "_id": "A",
+          "count": 300
+        },
+        {
+          "_id": "B",
+          "count": 150
+        },
+        {
+          "_id": "C",
+          "count": 400
+        }
+    
+      ];*/
+    }]);
+
+    app.directive('linearChart', function ($window, SalesService) {
       return {
         restrict: 'EA',
-        template: "<svg width='850' height='200'></svg>",
+        template: "<svg width='300' height='200'></svg>",
         scope: {
           data: '='
         },
         link: function (scope, elem, attrs) {
-          salesDataToPlot = scope.data;
+
           var padding = 20;
           var pathClass = "path";
           var xScale, yScale, xAxisGen, yAxisGen, lineFun;
@@ -93,64 +79,80 @@
           var rawSvg = elem.find('svg');
           var svg = d3.select(rawSvg[0]);
 
-          function setChartParameters() {
-            console.log(salesDataToPlot);
 
-            xScale = d3.scaleLinear()
-              .domain([salesDataToPlot[0].hour, salesDataToPlot[salesDataToPlot.length - 1].hour])
-              .range([padding + 5, rawSvg.attr("width") - padding]);
+          //Render graph based on 'data'
+          scope.render = function (data) {
 
-            yScale = d3.scaleLinear()
-              .domain([0, d3.max(salesDataToPlot, function (d) {
-                return d.sales;
-              })])
-              .range([rawSvg.attr("height") - padding, 0]);
+            console.log(data);
 
-            xAxisGen = d3.axisBottom()
-              .scale(xScale)
-              .ticks(salesDataToPlot.length - 1);
+            function setChartParameters() {
 
-            yAxisGen = d3.axisLeft()
-              .scale(yScale)
-              .ticks(5);
+              xScale = d3.scaleBand()
+                .domain(data.map(function (d) {
+                  return d._id;
+                }))
+                .range([padding + 20, rawSvg.attr("width") - padding]);
 
-            lineFun = d3.line()
-              .x(function (d) {
-                console.log(xScale(d.hour));
-                return xScale(d.hour);
-              })
-              .y(function (d) {
-                console.log(yScale(d.sales));
-                return yScale(d.sales);
-              })
-              .curve(d3.curveLinear);
-          }
+              yScale = d3.scaleLinear()
+                .domain([0, d3.max(data, function (d) {
+                  return d.count;
+                })])
+                .range([rawSvg.attr("height") - padding, 0]);
 
-          function drawLineChart() {
+              xAxisGen = d3.axisBottom()
+                .scale(xScale)
+                .ticks(data.length - 1);
 
-            setChartParameters();
+              yAxisGen = d3.axisLeft()
+                .scale(yScale)
+                .ticks(2);
 
-            svg.append("svg:g")
-              .attr("class", "x axis")
-              .attr("transform", "translate(0,180)")
-              .call(xAxisGen);
+              lineFun = d3.line()
+                .x(function (d) {
+                  console.log(xScale(d._id));
+                  return xScale(d._id);
+                })
+                .y(function (d) {
+                  console.log(yScale(d.count));
+                  return yScale(d.count);
+                })
+                .curve(d3.curveLinear);
+            }
 
-            svg.append("svg:g")
-              .attr("class", "y axis")
-              .attr("transform", "translate(20,0)")
-              .call(yAxisGen);
+            function drawLineChart() {
 
-            svg.append("svg:path")
-              .attr('d', lineFun(salesDataToPlot))
-              .attr('stroke', 'blue')
-              .attr('stroke-width', 2)
-              .attr('fill', 'none');
+              setChartParameters();
 
-          }
+              svg.append("svg:g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0,180)")
+                .call(xAxisGen);
 
-          drawLineChart();
+              svg.append("svg:g")
+                .attr("class", "y axis")
+                .attr("transform", "translate(40,0)")
+                .call(yAxisGen);
+
+              svg.append("svg:path")
+                .attr('d', lineFun(data))
+                .attr('stroke', 'blue')
+                .attr('stroke-width', 1.5)
+                .attr('fill', 'none')
+                .attr("transform", "translate(30,0)");
+
+            }
+
+            drawLineChart();
+          };
+
+          scope.$watch('data', function () {
+            scope.render(scope.data);
+          }, true);
+
         }
+
       };
+
     });
 
   </script>
