@@ -6,14 +6,16 @@ import { Router } from "@angular/router";
 
 import { Advertisement } from "./advertisement.model";
 
+import { Location } from "./location.model"
+
 import { Admin } from "../admins/admin.model";
 
 @Injectable({ providedIn: "root" })
 export class AdvertisementsService {
   private advertisements: Advertisement[] = [];
-  private notesUpdated = new Subject<{ advertisements: Advertisement[]; locations: Advertisement[]; noteCount: number }>();
+  private notesUpdated = new Subject<{ advertisements: Advertisement[]; locations: Location[]; noteCount: number }>();
 
-  private locations: Advertisement[] = [];
+  private locations: Location[] = [];
 
   constructor(private http: HttpClient, private router: Router) { }
 

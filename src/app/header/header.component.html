@@ -8,6 +8,7 @@
       <a mat-button routerLinkActive="mat-accent" routerLink="/create" *ngIf="authService.authenticated">New
         Advertisement</a>
       <a mat-button routerLinkActive="mat-accent" routerLink="/users" *ngIf="authService.authenticated">Information</a>
+      <a mat-button routerLinkActive="mat-accent" routerLink="/d3" *ngIf="authService.authenticated">D3</a>
       <a mat-button routerLinkActive="mat-accent" routerLink="/" *ngIf="authService.authenticated"
         (click)="logout()">Logout</a>
     </li>

@@ -9,6 +9,8 @@ import { AdvertisementsService } from "../advertisements.service";
 import { Admin } from "../../admins/admin.model"
 import { AdminsService } from "../../admins/admins.service"
 
+import { Location } from "../location.model"
+
 import { AuthService } from "../../sharedServices/auth.service"
 
 @Component({
@@ -20,7 +22,7 @@ export class AdListComponent implements OnInit, OnDestroy {
 
   advertisements: Advertisement[] = [];
   filteradvertisements: Advertisement[] = [];
-  locations: Advertisement[] = [];
+  locations: Location[] = [];
   isLoading = false;
   totalNotes = 0;
   notesPerPage = 2;
@@ -63,7 +65,7 @@ export class AdListComponent implements OnInit, OnDestroy {
     this.notesService.getAdvertisements(this.notesPerPage, this.currentPage);
     this.notesSub = this.notesService
       .getAdvertisementUpdateListener()
-      .subscribe((noteData: { advertisements: Advertisement[], locations: Advertisement[], noteCount: number }) => {
+      .subscribe((noteData: { advertisements: Advertisement[], locations: Location[], noteCount: number }) => {
         this.isLoading = false;
         this.totalNotes = noteData.noteCount;
         this.filteradvertisements = noteData.advertisements;
