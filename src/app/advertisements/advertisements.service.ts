@@ -6,7 +6,7 @@ import { Router } from "@angular/router";
 
 import { Advertisement } from "./advertisement.model";
 
-import { Location } from "./location.model"
+import { Location } from "./location.model";
 
 import { Admin } from "../admins/admin.model";
 

@@ -73,7 +73,6 @@ export class AdListComponent implements OnInit, OnDestroy {
         this.advertisements = noteData.advertisements;
       });
 
-
     //name of user from login
     this.username = this.authService.getUsername();
 
