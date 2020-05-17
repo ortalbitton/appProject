@@ -9,8 +9,6 @@ import { AdvertisementsService } from "../advertisements.service";
 import { Admin } from "../../admins/admin.model"
 import { AdminsService } from "../../admins/admins.service"
 
-import { Location } from "../location.model"
-
 import { AuthService } from "../../sharedServices/auth.service"
 
 @Component({
