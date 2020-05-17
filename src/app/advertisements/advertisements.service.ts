@@ -6,16 +6,12 @@ import { Router } from "@angular/router";
 
 import { Advertisement } from "./advertisement.model";
 
-import { Location } from "./location.model";
-
 import { Admin } from "../admins/admin.model";
 
 @Injectable({ providedIn: "root" })
 export class AdvertisementsService {
   private advertisements: Advertisement[] = [];
-  private notesUpdated = new Subject<{ advertisements: Advertisement[]; locations: Location[]; noteCount: number }>();
-
-  private locations: Location[] = [];
+  private notesUpdated = new Subject<{ advertisements: Advertisement[]; noteCount: number }>();
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -40,22 +36,14 @@ export class AdvertisementsService {
                 admindBy: note.admindBy
               };
             }),
-            locations: noteData.locations.map(note => {
-              return {
-                city: note._id,
-                count: note.count
-              };
-            }),
             maxNotes: noteData.maxNotes
           };
         })
       )
       .subscribe(transformedNoteData => {
         this.advertisements = transformedNoteData.advertisements;
-        this.locations = transformedNoteData.locations;
         this.notesUpdated.next({
           advertisements: [...this.advertisements],
-          locations: [...this.locations],
           noteCount: transformedNoteData.maxNotes
         });
       });
@@ -131,6 +119,14 @@ export class AdvertisementsService {
   deleteAdvertisement(advertisementId: string) {
     return this.http
       .delete("http://localhost:3000/api/advertisements/" + advertisementId);
+  }
+
+  //for groupbylocation
+  groupby() {
+    return this.http
+      .get<{ message: string; advertisements: any; locations: any, maxNotes: number }>(
+        "http://localhost:3000/api/advertisements"
+      )
   }
 
 }

@@ -25,7 +25,7 @@ export class AdListComponent implements OnInit, OnDestroy {
   locations: Location[] = [];
   isLoading = false;
   totalNotes = 0;
-  notesPerPage = 5;
+  notesPerPage = 2;
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
   private notesSub: Subscription;
@@ -65,13 +65,16 @@ export class AdListComponent implements OnInit, OnDestroy {
     this.notesService.getAdvertisements(this.notesPerPage, this.currentPage);
     this.notesSub = this.notesService
       .getAdvertisementUpdateListener()
-      .subscribe((noteData: { advertisements: Advertisement[], locations: Location[], noteCount: number }) => {
+      .subscribe((noteData: { advertisements: Advertisement[], noteCount: number }) => {
         this.isLoading = false;
         this.totalNotes = noteData.noteCount;
         this.filteradvertisements = noteData.advertisements;
-        this.locations = noteData.locations;
         this.advertisements = noteData.advertisements;
       });
+
+    this.notesService.groupby().subscribe(data => {
+      this.locations = data.locations;
+    });
 
     //name of user from login
     this.username = this.authService.getUsername();
