@@ -129,6 +129,7 @@ router.get("", (req, res, next) => {
     }
   }]);
 
+
   var o = {}
   o.map = function () {
     emit(this.title, 1);
@@ -136,11 +137,11 @@ router.get("", (req, res, next) => {
   o.reduce = function (k, vals) {
     return vals.length;
   };
+  o.out = "mapReduce"; //mapReduce is collection on mongodb
 
-  const mapReduceQuery = Advertisement.mapReduce(o);
+  Advertisement.mapReduce(o);
 
   let groupbyNotes;
-  let mapReduceTitle;
   let fetchedAdvertisements;
   if (pageSize && currentPage) {
     advertisementQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
@@ -149,12 +150,6 @@ router.get("", (req, res, next) => {
   groupbyQuery
     .then(documents => {
       groupbyNotes = documents;
-    });
-
-  mapReduceQuery
-    .then(docs => {
-      mapReduceTitle = docs.results;
-      console.log(mapReduceTitle);
     });
 
   advertisementQuery
@@ -167,7 +162,6 @@ router.get("", (req, res, next) => {
         message: "Advertisements fetched successfully!",
         advertisements: fetchedAdvertisements,
         locations: groupbyNotes,
-        mapReduceTitle, //???איך להעביר ללקוח
         maxNotes: count
       });
     });

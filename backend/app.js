@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const advertisementsRoutes = require("./routes/advertisements");
 const usersRoutes = require("./routes/users");
 const adminsRoutes = require("./routes/admins");
+const titlesRoutes = require("./routes/titles");
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use((req, res, next) => {
 app.use("/api/advertisements", advertisementsRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/admins", adminsRoutes);
+app.use("/api/mapReduce", titlesRoutes);
 
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname, "angular", index.html));

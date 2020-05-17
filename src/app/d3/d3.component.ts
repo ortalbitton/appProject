@@ -1,38 +1,29 @@
-import { Component, OnInit, Input, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
-import { Subscription } from "rxjs";
+import { MapReduceService } from './mapReduce.service'
+import { Title } from './title.model'
 
-import { AdvertisementsService } from "../advertisements/advertisements.service";
-import { Location } from '../advertisements/location.model';
 
 @Component({
   selector: 'app-d3',
   templateUrl: './d3.component.html',
   styleUrls: ['./d3.component.css']
 })
-export class D3Component implements OnInit, OnDestroy {
+export class D3Component implements OnInit {
   @ViewChild('chart', { static: false }) Component
 
   margin = { top: 20, right: 20, bottom: 30, left: 40 };
 
-  locations: Location[] = [];
-  notesPerPage = 2;
-  currentPage = 1;
-  private notesSub: Subscription;
+  titles: Title[] = [];
 
-  constructor(private advertisementsService: AdvertisementsService) { }
+  constructor(private mapReduceService: MapReduceService) { }
 
   ngOnInit(): void {
 
-    this.advertisementsService.getAdvertisements(this.notesPerPage, this.currentPage);
-    this.notesSub = this.advertisementsService
-      .getAdvertisementUpdateListener()
-      .subscribe((noteData: { locations: Location[] }) => {
-        this.locations = noteData.locations;
-
-        this.createChart();
-      });
-
+    this.mapReduceService.listofTitles().subscribe(data => {
+      this.titles = data.titles;
+      this.createChart();
+    });
   }
 
   private createChart(): void {
@@ -49,12 +40,12 @@ export class D3Component implements OnInit, OnDestroy {
       .scaleBand()
       .rangeRound([0, contentWidth])
       .padding(0.1)
-      .domain(this.locations.map(d => d.city));
+      .domain(this.titles.map(d => d._id));
 
     const y = d3
       .scaleLinear()
       .rangeRound([contentHeight, 0])
-      .domain([0, d3.max(this.locations, d => d.count)]);
+      .domain([0, d3.max(this.titles, d => d.value)]);
 
     const g = svg.append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
@@ -74,18 +65,14 @@ export class D3Component implements OnInit, OnDestroy {
       .attr('text-anchor', 'end');
 
     g.selectAll('.bar')
-      .data(this.locations)
+      .data(this.titles)
       .enter().append('rect')
       .attr('class', 'bar')
       .attr('fill', 'blue')
-      .attr('x', d => x(d.city))
-      .attr('y', d => y(d.count))
+      .attr('x', d => x(d._id))
+      .attr('y', d => y(d.value))
       .attr('width', x.bandwidth())
-      .attr('height', d => contentHeight - y(d.count));
-  }
-
-  ngOnDestroy() {
-    this.notesSub.unsubscribe();
+      .attr('height', d => contentHeight - y(d.value));
   }
 
 }

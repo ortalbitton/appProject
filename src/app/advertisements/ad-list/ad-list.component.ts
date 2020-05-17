@@ -25,7 +25,7 @@ export class AdListComponent implements OnInit, OnDestroy {
   locations: Location[] = [];
   isLoading = false;
   totalNotes = 0;
-  notesPerPage = 2;
+  notesPerPage = 5;
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
   private notesSub: Subscription;
