@@ -1,6 +1,10 @@
 mat-form-field,
 textarea {
-  width: 100%;
+  width: 50%;
+  margin: auto;
+}
+.matInput{
+  margin: auto;
 }
 
 mat-spinner {
@@ -18,6 +22,49 @@ input[type="file"] {
 
 .image-preview img {
   height: 100%;
+}
+
+mat-card {
+  max-width: 600px;
+  margin:  auto;
+  text-align: center;
+  background-color: #232e4d;
+  color: #d7b58c;
+}
+
+mat-form-field {
+  display: block;
+}
+
+
+h1{
+
+  text-align: center;
+  
+  font-family: 'Merienda One', Helvetica, sans-serif;
+  font-size: 250%;
+  }
+  table{
+    margin: auto;
+  }
+  a{
+    color: #eae5df;
+  }
+ 
+   ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: #eae5df !important;
+  } 
+  
+  ::ng-deep.mat-form-field-ripple {
+   /*change color of underline when focused*/
+   background-color: #d7b58c !important;;
+  }
+  ::ng-deep.mat-form-field-empty.mat-form-field-label {
+    color: #eae5df;
+}
+button{
+  background-color: #d7b58c;
 }
 
 .toggleTimepicker1 input,

@@ -1,16 +1,16 @@
-<mat-toolbar color="primary">
+<mat-toolbar><!--color="white"-->
   <span>
-    <a routerLink="/advertisements" *ngIf="authService.authenticated">MyAdvertisments</a>
+    our app
   </span>
   <span class="spacer"></span>
   <ul>
     <li>
-      <a mat-button routerLinkActive="mat-accent" routerLink="/create" *ngIf="authService.authenticated">New
-        Advertisement</a>
-      <a mat-button routerLinkActive="mat-accent" routerLink="/users" *ngIf="authService.authenticated">Information</a>
-      <a mat-button routerLinkActive="mat-accent" routerLink="/d3" *ngIf="authService.authenticated">D3</a>
+      <a mat-button routerLink="/advertisements" *ngIf="authService.authenticated">home page</a>
+      <a mat-button routerLinkActive="mat-accent" routerLink="/create" *ngIf="authService.authenticated">post an ad</a>
+      <a mat-button routerLinkActive="mat-accent" routerLink="/users" *ngIf="authService.authenticated">more</a>
+      <a mat-button routerLinkActive="mat-accent" routerLink="/d3" *ngIf="authService.authenticated">ads graph</a>
       <a mat-button routerLinkActive="mat-accent" routerLink="/" *ngIf="authService.authenticated"
-        (click)="logout()">Logout</a>
+        (click)="logout()">sign-out</a>
     </li>
   </ul>
 </mat-toolbar>

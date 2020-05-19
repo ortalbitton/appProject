@@ -1,10 +1,6 @@
-<h1>Login</h1>
+
 <mat-card class="example-card">
-  <mat-card-content>
-    Hi!!
-    Log in to the system.
-    If it's your first time register first.
-  </mat-card-content>
+  <h1>Login</h1>
   <mat-card-content>
     <table class="example-full-width" cellspacing="0">
       <tr>
@@ -26,8 +22,18 @@
     <p class="info-text mat-body-1" *ngIf="isInvalid">Invalid credentials</p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button (click)="login()" color="primary">Login</button>
-    <a mat-raised-button color="primary" routerLink="/createUser">Register</a>
-    <a mat-raised-button color="primary" routerLink="/loginAdmin">GO to admin</a>
+    <button mat-raised-button (click)="login()">sign in</button>
+   
   </mat-card-actions>
+
+  <mat-card-content>
+    Doesn't have an account yet?
+    <a routerLink="/createUser">sign up</a>
+    
+  </mat-card-content>
+  <mat-card-content>
+    You are administrator?
+    <a routerLink="/loginAdmin">go here</a>
+    
+  </mat-card-content>
 </mat-card>

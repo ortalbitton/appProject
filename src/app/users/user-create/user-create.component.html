@@ -1,13 +1,15 @@
 <mat-card>
+  <h1>sign-up</h1>
+  <mat-card-content>
   <form [formGroup]="form" (submit)="onSave()">
     <mat-form-field>
       <input matInput type="text" formControlName="name" placeholder="user name">
-      <mat-error *ngIf="form.get('name').invalid">Please enter a name.</mat-error>
+      <mat-error *ngIf="form.get('name').invalid">your name is not good, enter new name</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <input matInput type="text" formControlName="password" placeholder="user password">
-      <mat-error *ngIf="form.get('password').invalid">Please enter a password.</mat-error>
+      <mat-error *ngIf="form.get('password').invalid">please enter a 6 letter password</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -17,10 +19,19 @@
 
     <mat-form-field>
       <input matInput type="text" formControlName="longitude" placeholder="longitude">
-      <mat-error *ngIf="form.get('longitude').invalid">Please enter a advertisment longitude.</mat-error>
+      <mat-error *ngIf="form.get('longitude').invalid">Please enter a longitude.</mat-error>
     </mat-form-field>
     <p class="info-text mat-body-1" *ngIf="isName">the name is already in the system</p>
 
-    <button mat-raised-button color="accent" type="submit">Save</button>
+    <button mat-raised-button type="submit">sign up</button>
+    <mat-card-content>
+      <br>
+      Already in the system?
+      <a routerLink="/">sign in</a>
+      
+    </mat-card-content>
   </form>
+</mat-card-content>
 </mat-card>
+<!-- 
+ -->

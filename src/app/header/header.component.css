@@ -4,11 +4,28 @@ ul {
   margin: 0;
 }
 
-a {
+
+.mat-button{
   text-decoration: none;
-  color: white;
+  color: #d7b58c;
+  font-family: "Courier New";
 }
 
 .spacer {
   flex: 1 1 auto;
+  
 }
+/* .mat-icon-button, */
+.mat-toolbar{
+  background-color: #ffffff;
+  height: 20%;
+}
+
+span{
+  color: #232e4d;
+font-family: "great vibes";
+font-size: 350%;
+padding: right 200%;
+/* margin-right: 250%; */
+}
+
