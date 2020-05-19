@@ -118,8 +118,8 @@ let scrape = async () => {
 
   const result = await page.evaluate(() => {
 
-    let title = document.querySelector('body > app-root > main > app-login > h1').innerText;
-    let content = document.querySelector('body > app-root > main > app-login > mat-card > mat-card-content:nth-child(1)').innerText;
+    let title = document.querySelector('body > app-root > main > app-login > mat-card > h1').innerText;
+    let content = document.querySelector('body > app-root > main > app-login > mat-card > mat-card-content:nth-child(5)').innerText;
     return {
       title,
       content

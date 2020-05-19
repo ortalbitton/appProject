@@ -7,3 +7,4 @@ module.exports = mongoose.model('titles',
     value: Number
   }),
   'mapReduce'); //mapReduce is collection Which contains the results of the query mapReduce found in routes/advertisements.js
+//not a new collection
