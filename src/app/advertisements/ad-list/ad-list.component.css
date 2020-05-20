@@ -5,10 +5,18 @@
 
 mat-spinner {
   margin: auto;
+  max-width: 50px;
+  color: #232e4d;
 }
-
+ 
 mat-paginator {
-  margin-top: 1rem;
+  min-width: 111%;
+  margin-bottom: auto; 
+  /* margin: auto; */
+  background-color: #d7b58c;
+} 
+p{
+  color: #232e4d;
 }
 
 .info-text {
@@ -18,39 +26,109 @@ mat-paginator {
 .post-image {
   width: 100%;
 }
-
+/* 
 .post-image img {
   width: 100%;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+ 
+  box-shadow: 1px 1px 5px rgb(182, 55, 55); 
+} */
+/* 
+div{
+  margin: auto;
+} */
+
+p{
+ 
+  color:#d7b58c;
 }
 
-mat-form-field {
+/* mat-form-field {
   padding-left: 40px;
   padding-bottom: 0px;
+} */
+
+app-username{
+  margin-top: auto;
 }
 
-.searchbyCity {
-  height: 60px;
-  position: absolute;
-  margin-top: 10%;
+
+input{
+  height: 20px;
+  margin:auto;
+  color: #232e4d;
 }
 
 mat-list {
-  position: absolute;
-  margin-top: 15%;
-  margin-left: 2%;
+
+  max-width: 600px;
+  margin: 2em auto;
+  text-align: center;
+  background-color: #232e4d;
+  color: #d7b58c;
+ 
+}
+a{
+  color: #eae5df;
+}
+
+div{
+  
+  max-width: 150px;
+  margin: 2em auto;
+  text-align: center;
+ 
+}
+
+app-username{
+  color: #d7b58c;
+  font-family: 'Merienda One', Helvetica, sans-serif;
+  font-size: 50%;
+
+}
+
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: #c9a57a !important;
+} 
+
+::ng-deep.mat-form-field-ripple {
+ /*change color of underline when focused*/
+ background-color: #c9a57a !important;;
+}
+::ng-deep.mat-form-field-empty.mat-form-field-label {
+  color: #c9a57a;
 }
 
 .table {
-  margin-left: 25%;
-  margin-bottom: 5%;
+  margin: 2em auto;
+  
 }
+
+h3{
+  margin: auto;
+  color: #232e4d;
+  font-family: 'Merienda One', Helvetica, sans-serif;
+  font-size: 100%;
+}
+  
+h1{
+  color: #232e4d;
+  text-align: center;
+  font-family: 'Merienda One', Helvetica, sans-serif;
+  font-size: 400%;
+  }
 
 .formCreate {
   position: absolute;
   margin-top: 12%;
 }
 
-mat-expansion-panel {
-  margin-left: 30%;
+
+mat-accordion ,mat-expansion-panel{
+  margin:  auto;
+  min-width: 111%;
+  background-color: #232e4d;
+  color: #d7b58c;
 }
+

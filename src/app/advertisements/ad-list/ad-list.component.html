@@ -1,13 +1,29 @@
 <app-username></app-username>
+<h1>ads</h1>
+
+
+
+
 
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-<!--socket.io---->
-<app-socket *ngIf="isAdmin"></app-socket>
 
-<table class="table" cellspacing="0">
+
+
+<!--serch by city-->
+
+<div class="searchbyCity">
+  <h3>search by city</h3>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="searchCity" placeholder="search by City">
+  </mat-form-field>
+</div>
+
+
+<table style=" color: #232e4d;" class="table" cellspacing="0">
+  <h3>search by 3 parameters</h3>
   <tr>
-    <td><label>search by 3 param</label></td>
+    <!-- <td><label>search by 3 param</label></td> -->
     <td>
       <mat-form-field class="example-full-width">
         <input matInput type="text" [(ngModel)]="searchTitle" placeholder="title">
@@ -24,26 +40,17 @@
       </mat-form-field>
     </td>
     <td>
-      <button mat-button color="warn"
+      <button mat-button 
         (click)="onSearchBy3parameters(searchTitle,searchOpeningHours,searchClosingHours)">Search</button>
-      <button mat-button color="warn" (click)="OnClean()">Clean</button>
+      <button mat-button (click)="OnClean()">Clean</button>
     </td>
   </tr>
 </table>
 
-<div class="searchbyCity">
-  <mat-form-field>
-    <input matInput type="text" [(ngModel)]="searchCity" placeholder="search by City">
-  </mat-form-field>
-</div>
 
-<!--groupby-->
-<mat-list role="list" *ngIf="locations.length > 0 && !isLoading">
-  <h5>Group by of City:</h5>
-  <mat-list-item role="listitem" *ngFor="let location of locations">{{location._id}} - {{location.count}}
-  </mat-list-item>
-</mat-list>
 
+
+<!--the list of ads-->
 <mat-accordion multi="true" *ngIf="advertisements.length > 0 && !isLoading">
   <mat-expansion-panel *ngFor="let advertisement of advertisements">
     <mat-expansion-panel-header>
@@ -58,13 +65,25 @@
     <p>{{ advertisement.location }}</p>
     <p>admindBy: {{ advertisement.admindBy.name }}</p>
     <mat-action-row *ngIf="isAdmin">
-      <a mat-button color="primary" [routerLink]="['/edit', advertisement.id]">EDIT</a>
+      <a mat-button [routerLink]="['/edit', advertisement.id]">EDIT</a>
       <button mat-button color="warn" (click)="onDelete(advertisement.id)">DELETE</button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
 
-<mat-paginator [length]="totalNotes" [pageSize]="notesPerPage" [pageSizeOptions]="pageSizeOptions"
+
+
+<mat-paginator style="color: #232e4d;" [length]="totalNotes" [pageSize]="notesPerPage" [pageSizeOptions]="pageSizeOptions"
   (page)="onChangedPage($event)" *ngIf="advertisements.length > 0"></mat-paginator>
 <p class="info-text mat-body-1" *ngIf="advertisements.length <= 0 && !isLoading && isSearch">No notes added yet!</p>
 <p class="info-text mat-body-1" *ngIf="advertisements.length <= 0 && !isSearch">No result!</p>
+
+<!--groupby-->
+<mat-list role="list" *ngIf="locations.length > 0 && !isLoading">
+  <h3 style="color: #d7b58c;">Group by of City:</h3>
+  <mat-list-item style="color: #d7b58c;" role="listitem" *ngFor="let location of locations">{{location._id}} - {{location.count}}
+  </mat-list-item>
+</mat-list>
+
+<!--socket.io---->
+<app-socket *ngIf="isAdmin"></app-socket>

@@ -10,18 +10,20 @@ import io from 'node_modules/socket.io-client';
       <mat-label>amountOfUserConnect:</mat-label>
       <input matInput [(ngModel)]="amountOfUserConnect">
     </mat-form-field>
-    <button mat-raised-button color="accent" (click)="onChange()">Update of amountOfUserConnect</button>
+    <button mat-raised-button  (click)="onChange()">Update of amountOfUserConnect</button>
   `,
   styles: [
     `mat-form-field {
-      margin-top: 5%;
-      padding-left: 40px;
+       margin-top: 5%;
+      // margin-right: 10%;
+      //  padding-left: 40px;
+      // margin: 2em auto;
       position: absolute;
     }
-    
     button{
-      position: absolute;
-      margin-top: 8%;
+      background-color: #d7b58c;
+      // margin-left: auto;
+      // margin: 2em auto;
     }`
   ]
 })

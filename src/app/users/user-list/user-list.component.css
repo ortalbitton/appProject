@@ -6,12 +6,29 @@ color: #232e4d;
 font-family: 'Merienda One', Helvetica, sans-serif;
 font-size: 250%;
 }
-/* "great vibes"; */
-/* .app-map{
-    border: right style 15px #232e4d;
-    border: bottom style 15px #232e4d;
-}  */
-/* div{
-    border: right style 50px #232e4d;
-    border: bottom style 50px #232e4d;
-} */
+
+table {
+    margin: 2em auto;
+    
+  }
+
+  ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: #c9a57a !important;
+  } 
+  
+  ::ng-deep.mat-form-field-ripple {
+   /*change color of underline when focused*/
+   background-color: #c9a57a !important;;
+  }
+  ::ng-deep.mat-form-field-empty.mat-form-field-label {
+    color: #c9a57a;
+  }
+
+  ul{
+      margin: 0.0rem auto;
+      background-color: #232e4d;
+      color: #c9a57a;
+      max-width: 45%;
+  }
+  

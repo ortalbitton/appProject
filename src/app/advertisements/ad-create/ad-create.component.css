@@ -67,6 +67,7 @@ h1{
 }
 button{
   background-color: #d7b58c;
+  /* margin-left: auto; */
 }
 
 .toggleTimepicker1 input,
@@ -96,4 +97,10 @@ button{
   /* margin: auto; */
 
 
+}
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #d7b58c;
+  opacity: 1; /* Firefox */
 }

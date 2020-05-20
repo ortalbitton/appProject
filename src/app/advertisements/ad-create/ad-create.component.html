@@ -19,9 +19,9 @@
       <textarea matInput rows="4" formControlName="content" placeholder="Advertisment Content"></textarea>
       <mat-error *ngIf="form.get('content').invalid">Please enter a advertisment title.</mat-error>
     </mat-form-field>
-
-    <div class="toggleTimepicker1">
-      <input matInput [ngxTimepicker]="toggleTimepicker1" [disableClick]="true" readonly placeholder="Opening Hours"
+<!--style="color: #d7b58c;"-->
+    <div  class="toggleTimepicker1">
+      <input matInput  [ngxTimepicker]="toggleTimepicker1" [disableClick]="true" readonly placeholder="Opening Hours"
         formControlName="openingHours">
       <ngx-material-timepicker-toggle  [for]="toggleTimepicker1"></ngx-material-timepicker-toggle>
       <ngx-material-timepicker #toggleTimepicker1></ngx-material-timepicker>
