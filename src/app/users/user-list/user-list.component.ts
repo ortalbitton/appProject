@@ -51,7 +51,7 @@ export class UserListComponent implements OnInit, OnDestroy {
       //check if this.username.name is not Admin
       for (var i = 0; i < this.admins.length; i++) {
         if (this.username != this.admins[i].name) {
-          this.Userinformation = this.users.filter(user =>
+          this.Userinformation = this.filterusers.filter(user =>
             user.name == this.username);
           this.isAdmin = false;
         }
@@ -60,8 +60,6 @@ export class UserListComponent implements OnInit, OnDestroy {
       //check if this.username.name is admin
       for (var i = 0; i < this.admins.length; i++) {
         if (this.username == this.admins[i].name) {
-          this.users = this.users.filter(user =>
-            user.name != this.username);
           this.isAdmin = true;
         }
       }
