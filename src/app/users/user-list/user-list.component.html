@@ -34,17 +34,11 @@
 </ul>
 <p class="info-text mat-body-1" *ngIf="users.length <= 0 && !isSearch">No result!</p>
 
-<!-- <ul *ngFor="let information of Userinformation">
-  <li *ngIf="!isAdmin">name:{{information.name}} password:{{information.password}} </li>
-</ul> -->
 
 <h1 *ngIf="!isAdmin">location</h1>
 <div class="map" *ngFor="let information of Userinformation">
   <app-map *ngIf="!isAdmin" [latitude]="information.latitude" [longitude]="information.longitude"></app-map>
-  
+
 </div>
 <br>
-  <br>
-  <br>
-  <br>
 

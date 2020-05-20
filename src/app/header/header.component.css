@@ -5,7 +5,7 @@ ul {
 }
 
 
-.mat-button{
+.mat-button {
   text-decoration: none;
   color: #d7b58c;
   font-family: "Courier New";
@@ -13,20 +13,18 @@ ul {
 
 .spacer {
   flex: 1 1 auto;
-  
+
 }
+
 /* .mat-icon-button, */
-.mat-toolbar{
+.mat-toolbar {
   background-color: #ffffff;
   height: 20%;
 }
 
-span{
+span {
   color: #232e4d;
-font-family: 'Merienda One', Helvetica, sans-serif;
-/* "great vibes"; */
-font-size: 350%;
-padding: right 200%;
-/* margin-right: 250%; */
+  font-size: 350%;
+  padding: right 200%;
+  /* margin-right: 250%; */
 }
-
