@@ -1,5 +1,34 @@
 div {
   width: 800px;
-  height: 200px;
-  margin-left: 20px;
+  height: 400px;
+  margin: 2em auto;
+  text-align: center;
+  background-color: #232e4d;
+  color: #d7b58c;
 }
+
+
+
+
+
+/* mat-card {
+  max-width: 400px;
+  margin: 2em auto;
+  text-align: center;
+  background-color: #232e4d;
+  color: #d7b58c;
+}
+
+mat-form-field {
+  display: block;
+} */
+
+
+h1{
+
+  text-align: center;
+  color: #d7b58c;
+  font-family: 'Merienda One', Helvetica, sans-serif;
+  font-size: 250%;
+  }
+  

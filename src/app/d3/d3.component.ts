@@ -68,7 +68,7 @@ export class D3Component implements OnInit {
       .data(this.titles)
       .enter().append('rect')
       .attr('class', 'bar')
-      .attr('fill', 'blue')
+      .attr('fill', '#f7ece8')
       .attr('x', d => x(d._id))
       .attr('y', d => y(d.value))
       .attr('width', x.bandwidth())

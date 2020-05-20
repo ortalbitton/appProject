@@ -1,12 +1,14 @@
 mat-form-field,
 textarea {
-  width: 50%;
+  width: 100%;
   margin: auto;
 }
 .matInput{
   margin: auto;
 }
-
+button{
+  margin-left: auto;
+}
 mat-spinner {
   margin: auto;
 }
@@ -26,7 +28,7 @@ input[type="file"] {
 
 mat-card {
   max-width: 600px;
-  margin:  auto;
+  margin: 2em auto;
   text-align: center;
   background-color: #232e4d;
   color: #d7b58c;
@@ -73,7 +75,9 @@ button{
   height: 100%;
   border: 0;
   font-size: 16px;
+ 
 }
+
 
 .toggleTimepicker1,
 .toggleTimepicker2 {
@@ -89,5 +93,7 @@ button{
   user-select: none;
   transition: background-color .3s;
   cursor: pointer;
+  /* margin: auto; */
+
 
 }
