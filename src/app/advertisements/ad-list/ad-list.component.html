@@ -65,7 +65,7 @@
     <p>{{ advertisement.location }}</p>
     <p>admindBy: {{ advertisement.admindBy.name }}</p>
     <mat-action-row *ngIf="isAdmin">
-      <a mat-button [routerLink]="['/edit', advertisement.id]">EDIT</a>
+      <a mat-button  [routerLink]="['/edit', advertisement.id]">EDIT</a>
       <button mat-button color="warn" (click)="onDelete(advertisement.id)">DELETE</button>
     </mat-action-row>
   </mat-expansion-panel>

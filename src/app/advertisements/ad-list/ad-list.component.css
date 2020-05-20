@@ -26,26 +26,13 @@ p{
 .post-image {
   width: 100%;
 }
-/* 
-.post-image img {
-  width: 100%;
- 
-  box-shadow: 1px 1px 5px rgb(182, 55, 55); 
-} */
-/* 
-div{
-  margin: auto;
-} */
+
 
 p{
  
   color:#d7b58c;
 }
 
-/* mat-form-field {
-  padding-left: 40px;
-  padding-bottom: 0px;
-} */
 
 app-username{
   margin-top: auto;
@@ -67,9 +54,7 @@ mat-list {
   color: #d7b58c;
  
 }
-a{
-  color: #eae5df;
-}
+
 
 div{
   
@@ -131,4 +116,3 @@ mat-accordion ,mat-expansion-panel{
   background-color: #232e4d;
   color: #d7b58c;
 }
-

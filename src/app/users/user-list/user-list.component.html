@@ -27,9 +27,9 @@
   </tr>
 </table>
 <ul *ngFor="let user of users">
-  <li *ngIf="isAdmin">{{user.name}} {{user.password}} {{user.latitude}} {{user.longitude}} <a mat-button color="#232e4d"
+  <li *ngIf="isAdmin">{{user.name}} {{user.password}} {{user.latitude}} {{user.longitude}} <a mat-button 
       [routerLink]="['/editUser', user.id]">EDIT</a><button mat-button
-      color="#232e4d" (click)="onDelete(user.id)">DELETE</button>
+      color="warn" (click)="onDelete(user.id)">DELETE</button>
   </li>
 </ul>
 <p class="info-text mat-body-1" *ngIf="users.length <= 0 && !isSearch">No result!</p>
