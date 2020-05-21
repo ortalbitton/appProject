@@ -78,7 +78,7 @@ export class AdCreateComponent implements OnInit {
         this.advertisementId = null;
       }
     });
-
+//choose from given list
     this.adminsService.listofAdmins().subscribe(data => {
       this.admins = data.admins;
     });

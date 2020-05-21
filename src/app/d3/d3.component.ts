@@ -29,32 +29,39 @@ export class D3Component implements OnInit {
   private createChart(): void {
     const element = document.getElementById("chart");
 
+    //settes a hight and width to svg
     const svg = d3.select(element).append('svg')
       .attr('width', element.offsetWidth)
       .attr('height', element.offsetHeight);
-
+//settes the x 
     const contentWidth = element.offsetWidth - this.margin.left - this.margin.right;
+    //settes the y
     const contentHeight = element.offsetHeight - this.margin.top - this.margin.bottom;
 
+    //settes the x property
     const x = d3
       .scaleBand()
       .rangeRound([0, contentWidth])
       .padding(0.1)
       .domain(this.titles.map(d => d._id));
 
+      //settes the y property
     const y = d3
       .scaleLinear()
       .rangeRound([contentHeight, 0])
       .domain([0, d3.max(this.titles, d => d.value)]);
 
+      //draw the svg itself
     const g = svg.append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
+      //draw the x
     g.append('g')
       .attr('class', 'axis axis--x')
       .attr('transform', 'translate(0,' + contentHeight + ')')
       .call(d3.axisBottom(x));
 
+      //draw the y
     g.append('g')
       .attr('class', 'axis axis--y')
       .call(d3.axisLeft(y).ticks(2))
@@ -64,6 +71,7 @@ export class D3Component implements OnInit {
       .attr('dy', '0.71em')
       .attr('text-anchor', 'end');
 
+      //draw by data
     g.selectAll('.bar')
       .data(this.titles)
       .enter().append('rect')
